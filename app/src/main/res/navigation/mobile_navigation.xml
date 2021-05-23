@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/news_fragment">
+    <fragment
+        android:id="@+id/news_fragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.news.NewsFragment"
+        android:label="news_fragment"
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_news_fragment_to_currentNewsFragment"
+            app:destination="@id/currentNewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/my_tasks_fragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.myTasks.MyTasksFragment"
+        android:label="my_tasks_fragment"
+        tools:layout="@layout/fragment_my_tasks" />
+    <fragment
+        android:id="@+id/top_fragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.topUsers.TopUsersFragment"
+        android:label="top_fragment"
+        tools:layout="@layout/fragment_top_users" >
+        <action
+            android:id="@+id/action_top_fragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_from_bottom"
+            app:exitAnim="@anim/scale_decrease"
+            app:popEnterAnim="@anim/scale_increase"
+            app:popExitAnim="@anim/slide_out_to_bottom" />
+    </fragment>
+    <fragment
+        android:id="@+id/currentNewsFragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.news.CurrentNewsFragment"
+        android:label="fragment_current_news"
+        tools:layout="@layout/fragment_current_news" >
+        <argument
+            android:name="postId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <argument
+            android:name="userId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+</navigation>

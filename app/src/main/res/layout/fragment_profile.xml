@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".presentation.fragments.profile.ProfileFragment">
+
+    <ru.itis.androidtechpracticeapp.presentation.custom.AvatarImageView
+        android:id="@+id/profile_user_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/large_vertical_margin"
+        app:aiv_initials="ХА"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_user_full_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ханнанов Альберт"
+        android:textColor="@color/black"
+        android:textSize="@dimen/large_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_user_image"
+        android:layout_marginTop="@dimen/middle_vertical_margin"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_vk_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VK"
+        android:textColor="@color/black"
+        android:textSize="@dimen/middle_text"
+        app:layout_constraintTop_toBottomOf="@id/profile_user_full_name"
+        android:layout_marginTop="@dimen/middle_vertical_margin"
+        android:layout_marginStart="@dimen/large_horizontal_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/profile_vk_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/profile_vk_icon"
+        app:layout_constraintStart_toEndOf="@id/profile_vk_icon"
+        app:layout_constraintBottom_toBottomOf="@id/profile_vk_icon"
+        android:text="vk.com/verzzila"
+        android:textColor="@color/link"
+        android:textSize="@dimen/middle_text"
+        android:layout_marginStart="@dimen/large_horizontal_margin"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_instagram_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Instagram"
+        android:textColor="@color/black"
+        android:textSize="@dimen/middle_text"
+        app:layout_constraintTop_toBottomOf="@id/profile_vk_icon"
+        android:layout_marginTop="@dimen/middle_vertical_margin"
+        android:layout_marginStart="@dimen/large_horizontal_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/profile_instagram_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/profile_instagram_icon"
+        app:layout_constraintStart_toEndOf="@id/profile_instagram_icon"
+        app:layout_constraintBottom_toBottomOf="@id/profile_instagram_icon"
+        android:text="\@verzzil"
+        android:textColor="@color/link"
+        android:textSize="@dimen/middle_text"
+        android:layout_marginStart="@dimen/large_horizontal_margin"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,26 @@
+package ru.itis.androidtechpracticeapp.presentation.adapters
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import ru.itis.androidtechpracticeapp.R
+import ru.itis.androidtechpracticeapp.presentation.holders.TopUsersHolder
+import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
+
+class TopUsersAdapter(
+    private val tasks: List<UserPresentation>,
+    private val click: (user: UserPresentation) -> Unit
+) : RecyclerView.Adapter<TopUsersHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopUsersHolder =
+        TopUsersHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_top_users, parent, false),
+            click
+        )
+
+    override fun onBindViewHolder(holder: TopUsersHolder, position: Int) =
+        holder.bind(tasks[position])
+
+    override fun getItemCount(): Int =
+        tasks.size
+}

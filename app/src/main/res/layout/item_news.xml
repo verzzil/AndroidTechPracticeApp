@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    app:cardCornerRadius="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/news_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/background" />
+
+        <TextView
+            android:id="@+id/news_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha=".6"
+            android:background="#ffffff"
+            android:paddingStart="8dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="12dp"
+            android:text="03.11.2000"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/news_image"
+            app:layout_constraintTop_toTopOf="@id/news_image" />
+
+        <TextView
+            android:id="@+id/news_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_horizontal_margin"
+            android:layout_marginTop="@dimen/large_vertical_margin"
+            android:text="Any title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/large_text"
+            app:layout_constraintTop_toBottomOf="@id/news_image" />
+
+        <View
+            android:id="@+id/news_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/large_vertical_margin"
+            android:background="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/news_title" />
+
+        <TextView
+            android:id="@+id/news_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_horizontal_margin"
+            android:layout_marginTop="@dimen/middle_vertical_margin"
+            android:layout_marginEnd="@dimen/large_horizontal_margin"
+            android:text="@string/lorem"
+            app:layout_constraintTop_toBottomOf="@id/news_divider" />
+
+        <TextView
+            android:id="@+id/news_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/middle_horizontal_margin"
+            android:paddingBottom="@dimen/large_vertical_margin"
+            android:text="author"
+            android:textColor="@color/link"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/news_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

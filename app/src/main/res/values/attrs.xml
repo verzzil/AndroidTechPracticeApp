@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AvatarImageView">
+        <attr name="aiv_borderColor" format="color" />
+        <attr name="aiv_borderWidth" format="dimension" />
+        <attr name="aiv_initials" format="string" />
+    </declare-styleable>
+    <declare-styleable name="NumberFromTopTextView">
+        <attr name="nftv_borderColor" format="color" />
+        <attr name="nftv_borderWidth" format="dimension" />
+        <attr name="nftv_placeInTop" format="string" />
+        <attr name="nftv_titleColor" format="color" />
+    </declare-styleable>
+</resources>
