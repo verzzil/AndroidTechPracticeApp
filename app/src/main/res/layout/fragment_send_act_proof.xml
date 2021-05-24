@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +50,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Текст(опционально)"
-        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@id/right_line"
         app:layout_constraintStart_toStartOf="@id/left_line"
         app:layout_constraintTop_toBottomOf="@id/send_act_proof_link" />
@@ -76,7 +75,7 @@
         />
 
     <Button
-        android:id="@+id/sign_in_btn"
+        android:id="@+id/send_act_proof_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Отправить"

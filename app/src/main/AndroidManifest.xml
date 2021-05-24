@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".ApplicationDelegate"
@@ -16,6 +18,11 @@
         android:theme="@style/Theme.AndroidTechPracticeApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB2anWQsLM88M0iF3O3fQrrKyjVfMmAf34" />
+
         <activity android:name=".presentation.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.AuthActivity"/>
+        <activity android:name=".presentation.AuthActivity" />
         <activity android:name=".presentation.AuthorizationActivity" />
         <activity android:name=".presentation.MainActivity" />
     </application>

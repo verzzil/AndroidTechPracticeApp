@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity(), ToggleBars {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewModelComponent.inject(this)
         sharedViewModel =
             ViewModelProvider(this, viewModelFactory).get(SharedViewModel::class.java)
 

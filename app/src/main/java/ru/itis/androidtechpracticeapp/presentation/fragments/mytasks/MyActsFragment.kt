@@ -3,6 +3,7 @@ package ru.itis.androidtechpracticeapp.presentation.fragments.mytasks
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -105,7 +106,8 @@ class MyActsFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        rvTasksAdapter = ActsAdapter() {
+        rvTasksAdapter = ActsAdapter {
+            Log.i("clickedblya", "click")
             if (it.isAdmin == false) {
                 Toast.makeText(activity as MainActivity,
                     "Отправить доказательство на акт группы могут только организаторы группы",

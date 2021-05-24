@@ -4,8 +4,10 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import ru.itis.androidtechpracticeapp.data.api.dto.GroupActProofDto
 import ru.itis.androidtechpracticeapp.data.api.dto.ProfileSettingsDto
 import ru.itis.androidtechpracticeapp.data.api.dto.SignInDto
+import ru.itis.androidtechpracticeapp.data.api.dto.UserActProofDto
 import ru.itis.androidtechpracticeapp.data.api.responses.*
 
 
@@ -54,5 +56,11 @@ interface MyApi {
 
     @GET("/group/{groupId}")
     suspend fun getMainUserFromGroup(@Path("groupId") groupId: Int): GroupMainUserResponse
+
+    @POST("/user/act/proof/create")
+    suspend fun createUserProof(@Body userActProofDto: UserActProofDto)
+
+    @POST("/group/act/proof/create")
+    suspend fun createGroupProof(@Body groupActProofDto: GroupActProofDto)
 
 }

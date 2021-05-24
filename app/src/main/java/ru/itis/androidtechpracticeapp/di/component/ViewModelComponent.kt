@@ -4,6 +4,7 @@ import dagger.Subcomponent
 import ru.itis.androidtechpracticeapp.ProfileSettingsFragment
 import ru.itis.androidtechpracticeapp.di.ActivityScope
 import ru.itis.androidtechpracticeapp.di.module.ViewModelModule
+import ru.itis.androidtechpracticeapp.presentation.MainActivity
 import ru.itis.androidtechpracticeapp.presentation.fragments.authorization.signin.SignInFragment
 import ru.itis.androidtechpracticeapp.presentation.fragments.messages.ChatsFragment
 import ru.itis.androidtechpracticeapp.presentation.fragments.messages.CurrentChatFragment
@@ -24,6 +25,7 @@ interface ViewModelComponent {
     fun inject(fragment: ProfileSettingsFragment)
     fun inject(fragment: MyActsFragment)
     fun inject(fragment: SendActProofFragment)
+    fun inject(activity: MainActivity)
 
     @Subcomponent.Factory
     interface Factory {

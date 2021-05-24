@@ -2,9 +2,7 @@ package ru.itis.androidtechpracticeapp.data.repositories
 
 import android.util.Log
 import ru.itis.androidtechpracticeapp.data.api.MyApi
-import ru.itis.androidtechpracticeapp.data.api.dto.ProfileSettingsDto
-import ru.itis.androidtechpracticeapp.data.api.dto.SignInDto
-import ru.itis.androidtechpracticeapp.data.api.dto.TokenDto
+import ru.itis.androidtechpracticeapp.data.api.dto.*
 import ru.itis.androidtechpracticeapp.data.api.responses.ActResponse
 import ru.itis.androidtechpracticeapp.data.api.responses.UserResponse
 import ru.itis.androidtechpracticeapp.data.db.dao.UserDao
@@ -48,6 +46,14 @@ class UsersRepositoryImpl(
         val response = myApi.getEndActsList(userId)
         processData(response, userId)
         return response
+    }
+
+    override suspend fun sendAct(userActProofDto: UserActProofDto) {
+        myApi.createUserProof(userActProofDto)
+    }
+
+    override suspend fun sendAct(groupActProofDto: GroupActProofDto) {
+        myApi.createGroupProof(groupActProofDto)
     }
 
     override suspend fun signIn(email: String, password: String): TokenDto {

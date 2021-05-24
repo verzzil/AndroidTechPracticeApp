@@ -32,4 +32,11 @@ class DomainModule {
     ): UserUseCase =
         UserUseCaseImpl(usersRepository)
 
+    @Provides
+    @Singleton
+    fun provideActsUseCase(
+        usersRepository: UsersRepository
+    ): ActsUseCase =
+        ActsUseCaseImpl(usersRepository)
+
 }

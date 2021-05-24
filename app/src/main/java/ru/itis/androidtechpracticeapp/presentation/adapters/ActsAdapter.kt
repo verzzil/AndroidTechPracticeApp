@@ -9,7 +9,7 @@ import ru.itis.androidtechpracticeapp.data.api.responses.ActResponse
 import ru.itis.androidtechpracticeapp.presentation.holders.ActHolder
 
 class ActsAdapter(
-    private val click: (task: ActResponse) -> Unit,
+    private val click: (ActResponse) -> Unit,
 ) : ListAdapter<ActResponse, ActHolder>(
     object : DiffUtil.ItemCallback<ActResponse>() {
         override fun areItemsTheSame(oldItem: ActResponse, newItem: ActResponse): Boolean =

@@ -11,7 +11,7 @@ import ru.itis.androidtechpracticeapp.presentation.models.TestTask
 
 class ActHolder(
     containerView: View,
-    private val click: (task: ActResponse) -> Unit,
+    private val click: (ActResponse) -> Unit,
 ) : RecyclerView.ViewHolder(containerView) {
 
     private var title: TextView = itemView.findViewById(R.id.item_task_title)
@@ -26,7 +26,7 @@ class ActHolder(
             btn.setBackgroundColor(Color.GRAY)
         }
 
-        itemView.setOnClickListener {
+        btn.setOnClickListener {
             click(task)
         }
 

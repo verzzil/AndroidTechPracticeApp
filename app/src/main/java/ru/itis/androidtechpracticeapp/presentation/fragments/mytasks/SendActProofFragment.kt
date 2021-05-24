@@ -3,15 +3,18 @@ package ru.itis.androidtechpracticeapp.presentation.fragments.mytasks
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_send_act_proof.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
+import ru.itis.androidtechpracticeapp.presentation.SharedViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.profile.ProfileFragmentArgs
 import javax.inject.Inject
 
@@ -22,15 +25,18 @@ class SendActProofFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var navController: NavController
+    lateinit var sharedViewModel: SharedViewModel
+    private lateinit var viewModel: SendActProofViewModel
+    private var currentCoords: Pair<Double, Double>? = null
 
     companion object {
         fun newInstance() = SendActProofFragment()
     }
 
-    private lateinit var viewModel: SendActProofViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        sharedViewModel = (activity as MainActivity).sharedViewModel
         navController = (activity as MainActivity).navController
         (activity as MainActivity).viewModelComponent.inject(this)
         viewModel =
@@ -47,8 +53,30 @@ class SendActProofFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedViewModel.getCoords().observe(viewLifecycleOwner, {
+            currentCoords = it
+            send_act_proof_coords_indicator.text = "Координаты установлены"
+        })
+
+        send_act_proof_send.setOnClickListener {
+            if (currentCoords != null && send_act_proof_link.text.isNotEmpty()) {
+                viewModel.sendProof(
+                    args.actId,
+                    send_act_proof_link.text.toString(),
+                    send_act_proof_text.text.toString(),
+                    currentCoords ?: Pair(0.0, 0.0),
+                    args.actType
+                )
+                (activity as MainActivity).onBackPressed()
+            } else {
+                Toast.makeText((activity as MainActivity),
+                    "Ссылка на фото и координаты обязательны!",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+
         send_act_proof_coords.setOnClickListener {
-//            navController
+            navController.navigate(SendActProofFragmentDirections.actionSendActProofFragmentToMapFragment())
         }
 
     }
