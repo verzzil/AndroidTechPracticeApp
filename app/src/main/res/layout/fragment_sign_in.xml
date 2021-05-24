@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.authorization.sign_in.SignInFragment">
+    tools:context=".presentation.fragments.authorization.signin.SignInFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_line"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="@id/left_line" />
 
     <EditText
-        android:id="@+id/et_login"
+        android:id="@+id/sign_in_et_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Введите логин"
@@ -46,22 +46,22 @@
         app:layout_constraintTop_toBottomOf="@id/top_line" />
 
     <EditText
-        android:id="@+id/et_password"
+        android:id="@+id/sign_in_et_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Введите пароль"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@id/right_line"
         app:layout_constraintStart_toStartOf="@id/left_line"
-        app:layout_constraintTop_toBottomOf="@id/et_login" />
+        app:layout_constraintTop_toBottomOf="@id/sign_in_et_login" />
 
     <Button
-        android:id="@+id/btn_sign_in"
+        android:id="@+id/sign_in_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Войти"
         app:layout_constraintEnd_toEndOf="@id/right_line"
         app:layout_constraintStart_toStartOf="@id/left_line"
-        app:layout_constraintTop_toBottomOf="@id/et_password" />
+        app:layout_constraintTop_toBottomOf="@id/sign_in_et_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

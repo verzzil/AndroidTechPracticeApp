@@ -7,21 +7,24 @@
     <fragment
         android:id="@+id/news_fragment"
         android:name="ru.itis.androidtechpracticeapp.presentation.fragments.news.NewsFragment"
-        android:label="news_fragment"
+        android:label="Новости"
         tools:layout="@layout/fragment_news" >
         <action
             android:id="@+id/action_news_fragment_to_currentNewsFragment"
             app:destination="@id/currentNewsFragment" />
+        <action
+            android:id="@+id/action_news_fragment_to_chatsFragment"
+            app:destination="@id/chats_fragment" />
     </fragment>
     <fragment
         android:id="@+id/my_tasks_fragment"
         android:name="ru.itis.androidtechpracticeapp.presentation.fragments.myTasks.MyTasksFragment"
-        android:label="my_tasks_fragment"
+        android:label="Мои задания"
         tools:layout="@layout/fragment_my_tasks" />
     <fragment
         android:id="@+id/top_fragment"
         android:name="ru.itis.androidtechpracticeapp.presentation.fragments.topUsers.TopUsersFragment"
-        android:label="top_fragment"
+        android:label="Топ пользователей"
         tools:layout="@layout/fragment_top_users" >
         <action
             android:id="@+id/action_top_fragment_to_profileFragment"
@@ -44,11 +47,38 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="ru.itis.androidtechpracticeapp.presentation.fragments.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Профиль"
         tools:layout="@layout/fragment_profile" >
         <argument
             android:name="userId"
             app:argType="integer"
             android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/chats_fragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.messages.ChatsFragment"
+        android:label="Мои чаты"
+        tools:layout="@layout/fragment_chats" >
+        <action
+            android:id="@+id/action_chats_fragment_to_currentChatFragment"
+            app:destination="@id/currentChatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currentChatFragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.messages.CurrentChatFragment"
+        android:label="fragment_current_chat"
+        tools:layout="@layout/fragment_current_chat" >
+        <argument
+            android:name="chatId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="chatTitle"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="chatType"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 </navigation>

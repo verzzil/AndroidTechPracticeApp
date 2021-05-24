@@ -9,10 +9,7 @@ import ru.itis.androidtechpracticeapp.data.db.AppDb
 import ru.itis.androidtechpracticeapp.data.db.dao.MessageDao
 import ru.itis.androidtechpracticeapp.data.db.dao.PostDao
 import ru.itis.androidtechpracticeapp.data.db.dao.UserDao
-import ru.itis.androidtechpracticeapp.data.repositories.PostsRepository
-import ru.itis.androidtechpracticeapp.data.repositories.PostsRepositoryImpl
-import ru.itis.androidtechpracticeapp.data.repositories.UsersRepository
-import ru.itis.androidtechpracticeapp.data.repositories.UsersRepositoryImpl
+import ru.itis.androidtechpracticeapp.data.repositories.*
 import javax.inject.Singleton
 
 @Module
@@ -56,4 +53,12 @@ class DbModule {
         myApi: MyApi
     ): PostsRepository =
         PostsRepositoryImpl(usersRepository, postDao, myApi)
+
+    @Provides
+    @Singleton
+    fun provideChatRepository(
+        myApi: MyApi
+    ): ChatRepository =
+        ChatRepositoryImpl(myApi)
+
 }

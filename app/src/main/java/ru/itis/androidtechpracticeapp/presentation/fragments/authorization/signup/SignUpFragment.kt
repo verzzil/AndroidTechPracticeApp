@@ -1,4 +1,4 @@
-package ru.itis.androidtechpracticeapp.presentation.fragments.authorization.sign_in
+package ru.itis.androidtechpracticeapp.presentation.fragments.authorization.signup
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import ru.itis.androidtechpracticeapp.R
 
-class SignInFragment : Fragment() {
+class SignUpFragment : Fragment() {
 
     companion object {
-        fun newInstance() = SignInFragment()
+        fun newInstance() = SignUpFragment()
     }
 
-    private lateinit var viewModel: SignInViewModel
+    private lateinit var viewModel: SignUpViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_sign_in, container, false)
+        return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

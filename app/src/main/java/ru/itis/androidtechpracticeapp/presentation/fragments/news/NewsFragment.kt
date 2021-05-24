@@ -15,14 +15,14 @@ import kotlinx.coroutines.Dispatchers
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.data.repositories.PostsRepository
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
-import ru.itis.androidtechpracticeapp.presentation.adapters.NewsAdapter
+import ru.itis.androidtechpracticeapp.presentation.adapters.PostsAdapter
 import ru.itis.androidtechpracticeapp.presentation.itemDecorators.NewsItemDecorator
 import ru.itis.androidtechpracticeapp.presentation.models.PostPresentation
 import javax.inject.Inject
 
 class NewsFragment : Fragment(), CoroutineScope by CoroutineScope(Dispatchers.IO) {
 
-    private lateinit var rvNews: NewsAdapter
+    private lateinit var rvNews: PostsAdapter
     private lateinit var navController: NavController
 
     private var postsList: List<PostPresentation> = ArrayList()
@@ -78,7 +78,7 @@ class NewsFragment : Fragment(), CoroutineScope by CoroutineScope(Dispatchers.IO
     }
 
     private fun setNewsAdapter() {
-        rvNews = NewsAdapter {
+        rvNews = PostsAdapter {
             navController.navigate(NewsFragmentDirections.actionNewsFragmentToCurrentNewsFragment(it.id))
         }
         rvNews.submitList(postsList)

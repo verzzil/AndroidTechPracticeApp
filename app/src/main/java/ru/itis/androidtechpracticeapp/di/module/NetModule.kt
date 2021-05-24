@@ -3,6 +3,7 @@ package ru.itis.androidtechpracticeapp.di.module
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.itis.androidtechpracticeapp.BuildConfig
@@ -23,6 +24,20 @@ class NetModule {
         OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()
+
+//    @Provides
+//    @Singleton
+//    fun provideWebSocketClient(): OkHttpClient =
+//        OkHttpClient.Builder()
+//            .connectTimeout(30, TimeUnit.SECONDS)
+//            .build()
+
+//    @Provides
+//    @Singleton
+//    fun provideChatRequest(): Request =
+//        Request.Builder()
+//            .url("")
+//            .build()
 
     @Provides
     @Singleton

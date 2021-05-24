@@ -1,4 +1,4 @@
-package ru.itis.androidtechpracticeapp.presentation.fragments.authorization.sign_up
+package ru.itis.androidtechpracticeapp.presentation.fragments.authorization.signup
 
 import androidx.lifecycle.ViewModel
 

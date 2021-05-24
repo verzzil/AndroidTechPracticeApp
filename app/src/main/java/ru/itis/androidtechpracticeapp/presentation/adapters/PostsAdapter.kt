@@ -8,7 +8,7 @@ import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.holders.PostHolder
 import ru.itis.androidtechpracticeapp.presentation.models.PostPresentation
 
-class NewsAdapter(
+class PostsAdapter(
     private val click: (news: PostPresentation) -> Unit
 ) : ListAdapter<PostPresentation, PostHolder>(
     object: DiffUtil.ItemCallback<PostPresentation>() {
