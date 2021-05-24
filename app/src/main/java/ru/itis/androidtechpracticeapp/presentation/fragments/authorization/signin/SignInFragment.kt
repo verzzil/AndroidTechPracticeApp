@@ -51,7 +51,8 @@ class SignInFragment : Fragment() {
     private fun initSubscribes() {
         viewModel.getUserName().observe(viewLifecycleOwner, {
             (activity as AuthActivity).sp.edit().apply {
-                putString(Key.USER_NAME, it)
+                putString(Key.USER_NAME, it.getFullName())
+                putString(Key.USER_ROLE, it.role)
                 apply()
             }
         })

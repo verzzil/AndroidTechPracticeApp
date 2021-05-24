@@ -8,9 +8,8 @@ import kotlinx.android.synthetic.main.activity_auth.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.di.Injector
 import ru.itis.androidtechpracticeapp.di.component.ViewModelComponent
-import ru.itis.androidtechpracticeapp.presentation.adapters.FragmentViewPagerAdapter
+import ru.itis.androidtechpracticeapp.presentation.adapters.AuthViewPagerAdapter
 import ru.itis.androidtechpracticeapp.utils.Consts
-import ru.itis.androidtechpracticeapp.utils.Key
 
 class AuthActivity : AppCompatActivity() {
 
@@ -45,6 +44,6 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun initPagerAdapter() {
-        auth_view_pager.adapter = FragmentViewPagerAdapter(this)
+        auth_view_pager.adapter = AuthViewPagerAdapter(this)
     }
 }

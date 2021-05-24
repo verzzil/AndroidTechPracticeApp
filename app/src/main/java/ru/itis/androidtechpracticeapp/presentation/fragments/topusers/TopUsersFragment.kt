@@ -1,4 +1,4 @@
-package ru.itis.androidtechpracticeapp.presentation.fragments.topUsers
+package ru.itis.androidtechpracticeapp.presentation.fragments.topusers
 
 import android.content.Context
 import android.os.Bundle
@@ -11,8 +11,6 @@ import kotlinx.android.synthetic.main.fragment_top_users.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
 import ru.itis.androidtechpracticeapp.presentation.adapters.TopUsersAdapter
-import ru.itis.androidtechpracticeapp.presentation.fragments.profile.ProfileFragment
-import ru.itis.androidtechpracticeapp.presentation.fragments.profile.ProfileFragmentArgs
 import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
 
 class TopUsersFragment : Fragment() {

@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.itis.androidtechpracticeapp.data.api.dto.TokenDto
 import ru.itis.androidtechpracticeapp.domain.usecases.UserUseCase
+import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
 import javax.inject.Inject
 
 class SignInViewModel @Inject constructor(
@@ -15,7 +16,7 @@ class SignInViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val token: MutableLiveData<TokenDto> = MutableLiveData()
-    private val userName: MutableLiveData<String> = MutableLiveData()
+    private val user: MutableLiveData<UserPresentation> = MutableLiveData()
 
     fun signIn(email: String, password: String) {
         if (email == "" || password == "")
@@ -24,8 +25,8 @@ class SignInViewModel @Inject constructor(
             withContext(Dispatchers.IO) {
                 try {
                     val newToken = userUseCase.signIn(email, password)
-                    val newUserName = userUseCase.getById(newToken.userId)
-                    userName.postValue(newUserName)
+                    val newUser = userUseCase.getById(newToken.userId)
+                    user.postValue(newUser)
                     token.postValue(newToken)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -36,6 +37,6 @@ class SignInViewModel @Inject constructor(
 
     fun getToken(): MutableLiveData<TokenDto> = token
 
-    fun getUserName(): MutableLiveData<String> = userName
+    fun getUserName(): MutableLiveData<UserPresentation> = user
 
 }

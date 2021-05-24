@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">ws://f8a84c5a0d0782.localhost.run/wschat/1</domain>
+        <domain includeSubdomains="true">ws://a4993f021095aa.localhost.run/wschat/1</domain>
     </domain-config>
 </network-security-config>

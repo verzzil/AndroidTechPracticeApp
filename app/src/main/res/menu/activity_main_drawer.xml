@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/my_messages" />
         <item
+            android:id="@+id/profile_settings_fragment"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/profile_settings" />
+        <item
             android:id="@+id/my_tasks_fragment"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/my_tasks" />
@@ -20,5 +24,13 @@
             android:id="@+id/create_task_fragment"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/create_new_task" />
+        <item
+            android:id="@+id/create_post_fragment"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="@string/create_post_task" />
+        <item
+            android:id="@+id/logout_fragment"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="@string/logout" />
     </group>
 </menu>

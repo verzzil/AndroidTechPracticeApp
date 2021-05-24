@@ -1,4 +1,4 @@
-package ru.itis.androidtechpracticeapp.presentation.fragments.topUsers
+package ru.itis.androidtechpracticeapp.presentation.fragments.topusers
 
 import androidx.lifecycle.ViewModel
 

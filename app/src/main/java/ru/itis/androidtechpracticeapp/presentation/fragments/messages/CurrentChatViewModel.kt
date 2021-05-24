@@ -30,6 +30,7 @@ class CurrentChatViewModel @Inject constructor(
             .build()
         val request1 = Request.Builder()
             .url(url1)
+            .header("Connection","close")
             .build()
 
         val listener1 = MyWebSocketListener()
@@ -40,6 +41,7 @@ class CurrentChatViewModel @Inject constructor(
             .build()
         val request2 = Request.Builder()
             .url(url2)
+            .header("Connection","close")
             .build()
 
         val listener2 = MyWebSocketEchoListener()

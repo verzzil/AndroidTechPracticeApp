@@ -15,4 +15,7 @@
     <string name="my_messages">Мои сообщения</string>
     <string name="my_tasks">Мои задания</string>
     <string name="create_new_task">Создать задание</string>
+    <string name="create_post_task">Создать пост</string>
+    <string name="logout">Выйти</string>
+    <string name="profile_settings">Настройки профиля</string>
 </resources>

@@ -15,15 +15,25 @@
         <action
             android:id="@+id/action_news_fragment_to_chatsFragment"
             app:destination="@id/chats_fragment" />
+        <action
+            android:id="@+id/action_news_fragment_to_profileSettingsFragment"
+            app:destination="@id/profile_settings_fragment" />
+        <action
+            android:id="@+id/action_news_fragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/my_tasks_fragment"
-        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.myTasks.MyTasksFragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.mytasks.MyActsFragment"
         android:label="Мои задания"
-        tools:layout="@layout/fragment_my_tasks" />
+        tools:layout="@layout/fragment_my_tasks" >
+        <action
+            android:id="@+id/action_my_tasks_fragment_to_sendActProofFragment"
+            app:destination="@id/sendActProofFragment" />
+    </fragment>
     <fragment
         android:id="@+id/top_fragment"
-        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.topUsers.TopUsersFragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.topusers.TopUsersFragment"
         android:label="Топ пользователей"
         tools:layout="@layout/fragment_top_users" >
         <action
@@ -81,4 +91,40 @@
             app:argType="string"
             android:defaultValue="" />
     </fragment>
+    <fragment
+        android:id="@+id/profile_settings_fragment"
+        android:name="ru.itis.androidtechpracticeapp.ProfileSettingsFragment"
+        android:label="Настройки профиля"
+        tools:layout="@layout/fragment_profile_settings" >
+        <action
+            android:id="@+id/action_profile_settings_fragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.admin.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" />
+    <fragment
+        android:id="@+id/sendActProofFragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.mytasks.SendActProofFragment"
+        android:label="fragment_send_act_proof"
+        tools:layout="@layout/fragment_send_act_proof">
+        <argument
+            android:name="actId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="actType"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_sendActProofFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>

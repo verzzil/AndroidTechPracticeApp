@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import ru.itis.androidtechpracticeapp.presentation.fragments.authorization.signin.SignInFragment
 import ru.itis.androidtechpracticeapp.presentation.fragments.authorization.signup.SignUpFragment
 
-class FragmentViewPagerAdapter(
+class AuthViewPagerAdapter(
     fragment: FragmentActivity
 ) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 2

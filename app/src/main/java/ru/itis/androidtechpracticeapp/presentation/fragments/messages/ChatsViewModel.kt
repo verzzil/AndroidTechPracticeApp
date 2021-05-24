@@ -40,6 +40,7 @@ class ChatsViewModel @Inject constructor(
             .connectTimeout(60, TimeUnit.SECONDS)
             .build()
         val request = Request.Builder()
+            .header("Connection","close")
             .url(url)
             .build()
 
