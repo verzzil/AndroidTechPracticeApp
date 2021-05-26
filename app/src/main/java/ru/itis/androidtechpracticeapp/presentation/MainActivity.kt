@@ -1,7 +1,9 @@
 package ru.itis.androidtechpracticeapp.presentation
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -106,6 +108,12 @@ class MainActivity : AppCompatActivity(), ToggleBars {
                     true
                 }
             }
+        }
+        nav_view.menu.getItem(7).setOnMenuItemClickListener {
+            sp.edit().clear().apply()
+            startActivity(Intent(this, AuthActivity::class.java))
+            finish()
+            return@setOnMenuItemClickListener true
         }
         nav_view.setupWithNavController(navController)
     }

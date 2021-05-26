@@ -29,12 +29,12 @@
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/create_post_task" />
         <item
-            android:id="@+id/logout_fragment"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/logout" />
-        <item
             android:id="@+id/my_map_fragment"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/my_map" />
+        <item
+            android:id="@+id/logout_fragment"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="@string/logout" />
     </group>
 </menu>
