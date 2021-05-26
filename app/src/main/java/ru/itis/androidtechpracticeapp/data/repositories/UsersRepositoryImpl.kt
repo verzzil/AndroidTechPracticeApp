@@ -106,13 +106,6 @@ class UsersRepositoryImpl(
     }
 
     override suspend fun getTopUsers(): List<UserPresentation> {
-        val response = myApi.getTopUsers()
-        for (user: UserPresentation in response) {
-            if (user.photoLink != null) {
-                user.bitmapImage = BitmapFactory.decodeStream(URL(user.photoLink).openConnection()
-                        .getInputStream())
-            }
-        }
         return myApi.getTopUsers()
     }
 

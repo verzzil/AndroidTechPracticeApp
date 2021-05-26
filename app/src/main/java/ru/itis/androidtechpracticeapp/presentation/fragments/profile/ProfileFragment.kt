@@ -50,7 +50,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getCurrentUser().observe(viewLifecycleOwner, {
-//            profile_user_image todo фотка
+            if (it.bitmap != null)
+                profile_user_image.setImageBitmap(it.bitmap)
             profile_user_full_name.text = it.getFullName()
             adapterSocialLink.submitList(it.socialLinks)
         })

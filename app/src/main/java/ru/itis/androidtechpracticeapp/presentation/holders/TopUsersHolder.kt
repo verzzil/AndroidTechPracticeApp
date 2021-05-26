@@ -21,7 +21,9 @@ class TopUsersHolder(
 
     @SuppressLint("ResourceAsColor")
     fun bind(user: UserPresentation) {
-        // todo фотка
+        if(user.bitmap != null) {
+            userPhoto.setImageBitmap(user.bitmap)
+        }
 
         userFullName.text = user.getFullName()
         userCash.text = "${user.cash} KindCoin"

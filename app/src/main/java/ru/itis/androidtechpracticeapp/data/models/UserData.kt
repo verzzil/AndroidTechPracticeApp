@@ -14,7 +14,7 @@ data class UserData(
     var role: String,
     var selfCoefficient: Double,
     var socialLinks: List<SocialLinksResponse>,
-    var photoLink: String
+    var photoLink: String?
 ) {
 
     companion object {
@@ -29,7 +29,7 @@ data class UserData(
                 user.role,
                 user.selfCoefficient,
                 user.socialLinks,
-                user.userPhoto?:""
+                user.userPhoto
             )
 
         fun fromList(users: List<UserResponse>): List<UserData> =

@@ -1,5 +1,7 @@
 package ru.itis.androidtechpracticeapp.presentation.fragments.profile
 
+import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,6 +11,7 @@ import kotlinx.coroutines.withContext
 import ru.itis.androidtechpracticeapp.domain.usecases.ChatUseCase
 import ru.itis.androidtechpracticeapp.domain.usecases.UserUseCase
 import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
+import java.net.URL
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
@@ -22,7 +25,11 @@ class ProfileViewModel @Inject constructor(
     fun findUser(userId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                currentUser.postValue(userUseCase.getById(userId))
+                val resp = userUseCase.getById(userId)
+                if (resp.photoLink != null) {
+                    resp.bitmap = BitmapFactory.decodeStream(URL(resp.photoLink).openConnection().getInputStream())
+                }
+                currentUser.postValue(resp)
             }
         }
     }

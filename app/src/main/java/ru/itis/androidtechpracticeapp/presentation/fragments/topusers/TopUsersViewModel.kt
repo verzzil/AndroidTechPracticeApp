@@ -1,5 +1,6 @@
 package ru.itis.androidtechpracticeapp.presentation.fragments.topusers
 
+import android.graphics.BitmapFactory
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.itis.androidtechpracticeapp.domain.usecases.UserUseCase
 import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
+import java.net.URL
 import javax.inject.Inject
 
 class TopUsersViewModel @Inject constructor(
@@ -19,7 +21,13 @@ class TopUsersViewModel @Inject constructor(
     fun findTopUsers() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                topUsers.postValue(userUseCase.getTopUsers())
+                val resp = userUseCase.getTopUsers()
+                for (user: UserPresentation in resp) {
+                    if (user.photoLink != null) {
+                        user.bitmap = BitmapFactory.decodeStream(URL(user.photoLink).openConnection().getInputStream())
+                    }
+                }
+                topUsers.postValue(resp)
             }
         }
     }

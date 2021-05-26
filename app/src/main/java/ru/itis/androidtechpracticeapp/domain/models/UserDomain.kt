@@ -14,6 +14,7 @@ data class UserDomain(
     var role: String,
     var selfCoefficient: Double,
     var socialLinks: List<SocialLinksResponse>,
+    var photoLink: String?
 ) {
 
     companion object {
@@ -27,7 +28,8 @@ data class UserDomain(
                 user.lastName,
                 user.role,
                 user.selfCoefficient,
-                user.socialLinks
+                user.socialLinks,
+                user.photoLink
             )
 
         fun fromList(users: List<UserData>): List<UserDomain> =
