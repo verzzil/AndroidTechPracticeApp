@@ -1,10 +1,13 @@
 package ru.itis.androidtechpracticeapp.presentation.models
 
+import android.graphics.Bitmap
+
 data class ChatPresentation(
     val id: Int,
     var title: String,
     val chatType: String,
-    var lastMessage: MessagePresentation
+    var lastMessage: MessagePresentation,
+    var link: Bitmap?
 ) {
     companion object {
         fun cloneData(list: List<ChatPresentation>): List<ChatPresentation> {
@@ -19,7 +22,8 @@ data class ChatPresentation(
                 pres.id,
                 pres.title,
                 pres.chatType,
-                MessagePresentation.clone(pres.lastMessage)
+                MessagePresentation.clone(pres.lastMessage),
+                null
             )
     }
 }

@@ -43,6 +43,7 @@ class ProfileSettingsViewModel @Inject constructor(
             if (firstName == "") firstName = null
             if (oldPassword == "") oldPassword = null
             if (newPassword == "") newPassword = null
+            if (photoLink == "") photoLink = null
         }
 
         viewModelScope.launch {

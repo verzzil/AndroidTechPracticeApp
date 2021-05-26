@@ -23,6 +23,6 @@ data class UserResponse(
     var selfCoefficient: Double,
     @SerializedName("socialLinks")
     var socialLinks: List<SocialLinksResponse>,
-    @SerializedName("userPhotos")
-    var userPhotos: List<Any>
+    @SerializedName("photoLink")
+    var userPhoto: String?
 )

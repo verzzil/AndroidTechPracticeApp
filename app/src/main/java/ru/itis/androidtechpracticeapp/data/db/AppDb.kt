@@ -12,7 +12,7 @@ import ru.itis.androidtechpracticeapp.data.db.models.UserDb
 
 @Database(
     entities = [PostDb::class, MessageDb::class, UserActsDb::class, UserDb::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDb: RoomDatabase() {

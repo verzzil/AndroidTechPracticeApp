@@ -1,5 +1,6 @@
 package ru.itis.androidtechpracticeapp.presentation.models
 
+import android.graphics.Bitmap
 import ru.itis.androidtechpracticeapp.data.api.responses.SocialLinksResponse
 import ru.itis.androidtechpracticeapp.data.models.UserData
 import ru.itis.androidtechpracticeapp.domain.models.UserDomain
@@ -15,6 +16,7 @@ data class UserPresentation(
     var role: String,
     var selfCoefficient: Double,
     var socialLinks: List<SocialLinksResponse>,
+    var photoLink: String?,
 ) {
 
     companion object {
@@ -29,7 +31,8 @@ data class UserPresentation(
                 user.lastName,
                 user.role,
                 user.selfCoefficient,
-                user.socialLinks
+                user.socialLinks,
+                null,
             )
 
         fun fromList(users: List<UserDomain>): List<UserPresentation> =

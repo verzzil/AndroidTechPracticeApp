@@ -1,5 +1,6 @@
 package ru.itis.androidtechpracticeapp.presentation.fragments.messages
 
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,14 +10,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import org.json.JSONObject
+import retrofit2.http.Url
 import ru.itis.androidtechpracticeapp.domain.usecases.ChatUseCase
 import ru.itis.androidtechpracticeapp.presentation.models.ChatPresentation
 import ru.itis.androidtechpracticeapp.presentation.models.MessagePresentation
+import java.net.URL
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ChatsViewModel @Inject constructor(
-    private val chatUseCase: ChatUseCase
+    private val chatUseCase: ChatUseCase,
 ) : ViewModel() {
     private val chatsLiveData: MutableLiveData<List<ChatPresentation>> = MutableLiveData()
     private var chats: List<ChatPresentation> = ArrayList()
@@ -28,7 +31,12 @@ class ChatsViewModel @Inject constructor(
                 val result = chatUseCase.getAllUserChats(userId)
                 for (cp: ChatPresentation in result) {
                     if (cp.chatType != "GROUP") {
-                        cp.title = chatUseCase.getTitleDialog(cp.id, userId)
+                        val response = chatUseCase.getDialogInfo(cp.id, userId)
+                        cp.title = response.dialogTitle
+                        if (response.link.isNotEmpty()) {
+                            cp.link = BitmapFactory.decodeStream(URL(response.link).openConnection()
+                                .getInputStream())
+                        }
                     }
                 }
                 chats = ChatPresentation.cloneData(result)
@@ -45,7 +53,7 @@ class ChatsViewModel @Inject constructor(
             .connectTimeout(60, TimeUnit.SECONDS)
             .build()
         val request = Request.Builder()
-            .header("Connection","close")
+            .header("Connection", "close")
             .url(url)
             .build()
 
@@ -95,7 +103,8 @@ class ChatsViewModel @Inject constructor(
                         it.getInt("chatId"),
                         it.getInt("userId"),
                         it.getString("userName")
-                    )
+                    ),
+                    null
                 )
             }
 

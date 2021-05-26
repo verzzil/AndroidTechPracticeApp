@@ -6,5 +6,6 @@ data class ProfileSettingsDto(
     var lastName: String?,
     var oldPassword: String?,
     var newPassword: String?,
-    var socialLinks: List<SocialLinkDto>?
+    var socialLinks: List<SocialLinkDto>?,
+    var photoLink: String?
 )

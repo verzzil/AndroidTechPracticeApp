@@ -15,6 +15,7 @@ class PostHolder(
     private var postTitle: AppCompatTextView = itemView.findViewById(R.id.item_news_straggered_title)
 
     fun bind(news: PostPresentation) {
+        // todo фотка
         postTitle.text = news.title
 
         itemView.setOnClickListener {

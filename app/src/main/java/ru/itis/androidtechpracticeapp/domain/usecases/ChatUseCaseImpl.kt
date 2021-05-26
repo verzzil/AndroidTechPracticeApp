@@ -1,5 +1,6 @@
 package ru.itis.androidtechpracticeapp.domain.usecases
 
+import ru.itis.androidtechpracticeapp.data.api.responses.DialogInfoResponse
 import ru.itis.androidtechpracticeapp.data.repositories.ChatRepository
 import ru.itis.androidtechpracticeapp.presentation.models.ChatPresentation
 import ru.itis.androidtechpracticeapp.presentation.models.MessagePresentation
@@ -15,7 +16,7 @@ class ChatUseCaseImpl(
         return chatRepository.getChatCorrespondence(chatId)
     }
 
-    override suspend fun getTitleDialog(chatId: Int, userId: Int): String {
+    override suspend fun getDialogInfo(chatId: Int, userId: Int): DialogInfoResponse {
         return chatRepository.getTitleDialog(chatId, userId)
     }
 

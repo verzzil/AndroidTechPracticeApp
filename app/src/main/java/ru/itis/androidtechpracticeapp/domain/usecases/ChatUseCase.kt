@@ -1,5 +1,6 @@
 package ru.itis.androidtechpracticeapp.domain.usecases
 
+import ru.itis.androidtechpracticeapp.data.api.responses.DialogInfoResponse
 import ru.itis.androidtechpracticeapp.presentation.models.ChatPresentation
 import ru.itis.androidtechpracticeapp.presentation.models.MessagePresentation
 
@@ -9,7 +10,7 @@ interface ChatUseCase {
 
     suspend fun getChatCorrespondence(chatId: Int): List<MessagePresentation>
 
-    suspend fun getTitleDialog(chatId: Int, userId: Int): String
+    suspend fun getDialogInfo(chatId: Int, userId: Int): DialogInfoResponse
 
     suspend fun createChat(myId: Int, anotherUserId: Int): Int
 

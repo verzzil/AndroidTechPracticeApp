@@ -101,7 +101,7 @@ class CreateActFragment : Fragment() {
                 )
                 (activity as MainActivity).onBackPressed()
             } else {
-                if (chooseUsersIds.size > 1) {
+                if (chooseUsersIds.size > 2) {
                     viewModel.createGroupAct(
                         chooseUsersIds,
                         (activity as MainActivity).sp.getInt(Key.USER_ID, 0),
@@ -110,7 +110,7 @@ class CreateActFragment : Fragment() {
                     (activity as MainActivity).onBackPressed()
                 } else {
                     Toast.makeText((activity as MainActivity),
-                        "Выберете своих единомышленников",
+                        "Выберете своих единомышленников (больше одного)",
                         Toast.LENGTH_SHORT).show()
                 }
             }

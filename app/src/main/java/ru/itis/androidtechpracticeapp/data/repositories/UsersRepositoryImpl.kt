@@ -1,6 +1,7 @@
 package ru.itis.androidtechpracticeapp.data.repositories
 
 import android.accounts.NetworkErrorException
+import android.graphics.BitmapFactory
 import android.util.Log
 import ru.itis.androidtechpracticeapp.data.api.MyApi
 import ru.itis.androidtechpracticeapp.data.api.dto.*
@@ -12,6 +13,7 @@ import ru.itis.androidtechpracticeapp.data.db.dao.UserDao
 import ru.itis.androidtechpracticeapp.data.db.models.UserDb
 import ru.itis.androidtechpracticeapp.data.models.UserData
 import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
+import java.net.URL
 
 class UsersRepositoryImpl(
     private val userDao: UserDao,
@@ -104,6 +106,13 @@ class UsersRepositoryImpl(
     }
 
     override suspend fun getTopUsers(): List<UserPresentation> {
+        val response = myApi.getTopUsers()
+        for (user: UserPresentation in response) {
+            if (user.photoLink != null) {
+                user.bitmapImage = BitmapFactory.decodeStream(URL(user.photoLink).openConnection()
+                        .getInputStream())
+            }
+        }
         return myApi.getTopUsers()
     }
 

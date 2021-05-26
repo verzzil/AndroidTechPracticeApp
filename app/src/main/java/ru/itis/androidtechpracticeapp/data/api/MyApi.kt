@@ -89,7 +89,7 @@ interface MyApi {
     suspend fun getTitleDialog(
         @Path("chatId") chatId: Int,
         @Path("userId") userId: Int,
-    ): TitleDialog
+    ): DialogInfoResponse
 
     @POST("/chat/create")
     suspend fun createChat(@Body twoUsersChatDto: TwoUsersChatDto): ChatResponse

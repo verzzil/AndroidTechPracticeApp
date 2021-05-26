@@ -87,6 +87,7 @@ class ProfileSettingsFragment : Fragment() {
                 socialLink = profile_settings_anchor_social_links_link.text.toString()
             )
         ),
+        photoLink = profile_settings_et_link.text.toString()
     )
 
     private fun initUi() {

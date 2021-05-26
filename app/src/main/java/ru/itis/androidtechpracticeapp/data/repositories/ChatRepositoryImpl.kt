@@ -3,6 +3,7 @@ package ru.itis.androidtechpracticeapp.data.repositories
 import ru.itis.androidtechpracticeapp.data.api.MyApi
 import ru.itis.androidtechpracticeapp.data.api.dto.TwoUsersChatDto
 import ru.itis.androidtechpracticeapp.data.api.responses.ChatResponse
+import ru.itis.androidtechpracticeapp.data.api.responses.DialogInfoResponse
 import ru.itis.androidtechpracticeapp.presentation.models.ChatPresentation
 import ru.itis.androidtechpracticeapp.presentation.models.MessagePresentation
 
@@ -19,7 +20,8 @@ class ChatRepositoryImpl(
                     resp.id,
                     resp.title,
                     resp.chatType,
-                    MessagePresentation.from(resp.lastMessage)
+                    MessagePresentation.from(resp.lastMessage),
+                    null
                 )
             )
         }
@@ -33,8 +35,8 @@ class ChatRepositoryImpl(
         return MessagePresentation.fromList(response)
     }
 
-    override suspend fun getTitleDialog(chatId: Int, userId: Int): String {
-        return myApi.getTitleDialog(chatId, userId).dialogTitle
+    override suspend fun getTitleDialog(chatId: Int, userId: Int): DialogInfoResponse {
+        return myApi.getTitleDialog(chatId, userId)
     }
 
     override suspend fun createChat(myId: Int, anotherUserId: Int): Int {
