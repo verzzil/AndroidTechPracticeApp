@@ -163,7 +163,7 @@ class CreateActFragment : Fragment() {
             viewModel.setSelectedUsers(it)
         }
         rvAdded = AddedToGroupAdapter {
-
+            viewModel.removeSelectedUser(it)
         }
         create_act_search_results.adapter = rvAddToGroupAdapter
 

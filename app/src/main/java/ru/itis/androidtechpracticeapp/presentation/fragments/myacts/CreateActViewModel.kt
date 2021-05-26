@@ -43,7 +43,6 @@ class CreateActViewModel @Inject constructor(
                 )
             }
         }
-
     }
 
     fun createGroupAct(usersIds: List<Int>, mainUserId: Int, text: String) {
@@ -60,6 +59,11 @@ class CreateActViewModel @Inject constructor(
 
     fun setSelectedUsers(user: UserPresentation) {
         (listSelUsers as HashSet).add(user)
+        selectedUsers.value = listSelUsers
+    }
+
+    fun removeSelectedUser(user: UserPresentation) {
+        (listSelUsers as HashSet).remove(user)
         selectedUsers.value = listSelUsers
     }
 
