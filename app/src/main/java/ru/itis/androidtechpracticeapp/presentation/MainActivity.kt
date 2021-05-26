@@ -70,12 +70,6 @@ class MainActivity : AppCompatActivity(), ToggleBars {
         nav_view.visibility = View.VISIBLE
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.test, menu)
-//        return true
-//    }
-
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(drawer_layout) || super.onSupportNavigateUp()
     }
@@ -94,10 +88,6 @@ class MainActivity : AppCompatActivity(), ToggleBars {
 
     private fun setupToolbarAndDrawer() {
         setSupportActionBar(toolbar)
-//        val appBarConfiguration: AppBarConfiguration = AppBarConfiguration(
-//            setOf(R.id.news_fragment, R.id.my_tasks_fragment, R.id.top_fragment),
-//            drawer_layout
-//        )
         setupActionBarWithNavController(navController, drawer_layout)
 
         sp.getString(Key.USER_ROLE, "").let {
@@ -115,11 +105,8 @@ class MainActivity : AppCompatActivity(), ToggleBars {
             finish()
             return@setOnMenuItemClickListener true
         }
-        nav_view.setupWithNavController(navController)
-    }
 
-    override fun onCreatePanelMenu(featureId: Int, menu: Menu): Boolean {
-        return super.onCreatePanelMenu(featureId, menu)
+        nav_view.setupWithNavController(navController)
     }
 
     private fun setupNavController() {

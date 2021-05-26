@@ -2,7 +2,7 @@ package ru.itis.androidtechpracticeapp.utils
 
 object Consts {
     const val SP_NAME = "data"
-    const val HOST_NAME = "71abdf56f8ea.ngrok.io"
+    const val HOST_NAME = "389b3858e7ef.ngrok.io"
 }
 
 object Key {

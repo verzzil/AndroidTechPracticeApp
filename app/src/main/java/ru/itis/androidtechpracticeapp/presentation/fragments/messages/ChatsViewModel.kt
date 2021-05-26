@@ -33,7 +33,7 @@ class ChatsViewModel @Inject constructor(
                     if (cp.chatType != "GROUP") {
                         val response = chatUseCase.getDialogInfo(cp.id, userId)
                         cp.title = response.dialogTitle
-                        if (response.link.isNotEmpty()) {
+                        if (response.link != null && response.link.isNotEmpty()) {
                             cp.link = BitmapFactory.decodeStream(URL(response.link).openConnection()
                                 .getInputStream())
                         }

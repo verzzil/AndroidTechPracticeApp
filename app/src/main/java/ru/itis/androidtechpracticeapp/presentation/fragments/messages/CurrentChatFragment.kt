@@ -3,6 +3,7 @@ package ru.itis.androidtechpracticeapp.presentation.fragments.messages
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -95,6 +96,7 @@ class CurrentChatFragment : Fragment() {
                 args.chatType,
                 args.chatTitle
             )
+            current_chat_et_msg.setText("")
         }
 
     }
