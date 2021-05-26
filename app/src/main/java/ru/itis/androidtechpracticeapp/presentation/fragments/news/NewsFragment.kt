@@ -29,7 +29,7 @@ class NewsFragment : Fragment(), CoroutineScope by CoroutineScope(Dispatchers.IO
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
+    // todo обработать вывод ности
     companion object {
         fun newInstance() = NewsFragment()
     }

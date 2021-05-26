@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import ru.itis.androidtechpracticeapp.R
+import ru.itis.androidtechpracticeapp.presentation.AuthActivity
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
 import javax.inject.Inject
 
@@ -24,7 +25,7 @@ class SignUpFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity as MainActivity).viewModelComponent.inject(this)
+        (activity as AuthActivity).viewModelComponent.inject(this)
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(SignUpViewModel::class.java)
     }
@@ -40,7 +41,7 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getUserResp().observe(viewLifecycleOwner, {
-            Toast.makeText(activity as MainActivity, "Успешная регистрация", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity as AuthActivity, "Успешная регистрация", Toast.LENGTH_SHORT).show()
         })
 
         initUi()

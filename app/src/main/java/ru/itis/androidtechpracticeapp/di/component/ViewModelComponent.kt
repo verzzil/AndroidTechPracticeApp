@@ -15,6 +15,7 @@ import ru.itis.androidtechpracticeapp.presentation.fragments.messages.CurrentCha
 import ru.itis.androidtechpracticeapp.presentation.fragments.myacts.CreateActFragment
 import ru.itis.androidtechpracticeapp.presentation.fragments.myacts.MyActsFragment
 import ru.itis.androidtechpracticeapp.presentation.fragments.myacts.SendActProofFragment
+import ru.itis.androidtechpracticeapp.presentation.fragments.news.CreatePostFragment
 import ru.itis.androidtechpracticeapp.presentation.fragments.news.CurrentNewsFragment
 import ru.itis.androidtechpracticeapp.presentation.fragments.news.NewsFragment
 import ru.itis.androidtechpracticeapp.presentation.fragments.profile.ProfileFragment
@@ -40,6 +41,7 @@ interface ViewModelComponent {
     fun inject(fragment: TopUsersFragment)
     fun inject(fragment: ProfileFragment)
     fun inject(fragment: SignUpFragment)
+    fun inject(fragment: CreatePostFragment)
 
     @Subcomponent.Factory
     interface Factory {

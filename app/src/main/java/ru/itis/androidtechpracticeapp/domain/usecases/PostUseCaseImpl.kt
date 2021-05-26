@@ -1,5 +1,6 @@
 package ru.itis.androidtechpracticeapp.domain.usecases
 
+import ru.itis.androidtechpracticeapp.data.api.dto.PostDto
 import ru.itis.androidtechpracticeapp.data.repositories.PostsRepository
 import ru.itis.androidtechpracticeapp.domain.models.PostDomain
 import ru.itis.androidtechpracticeapp.presentation.models.PostPresentation
@@ -18,5 +19,9 @@ class PostUseCaseImpl(
         val result: List<PostDomain> = PostDomain.fromList(postsRepository.findAllPosts())
 
         return PostPresentation.fromList(result)
+    }
+
+    override suspend fun createPost(post: PostDto) {
+        postsRepository.createPost(post)
     }
 }

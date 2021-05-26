@@ -1,6 +1,7 @@
 package ru.itis.androidtechpracticeapp.data.repositories
 
 import android.accounts.NetworkErrorException
+import android.util.Log
 import ru.itis.androidtechpracticeapp.data.api.MyApi
 import ru.itis.androidtechpracticeapp.data.api.dto.*
 import ru.itis.androidtechpracticeapp.data.api.responses.ActProofResponse

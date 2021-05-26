@@ -69,7 +69,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Введите email"
-        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@id/right_line"
         app:layout_constraintStart_toStartOf="@id/left_line"
         app:layout_constraintTop_toBottomOf="@id/sign_up_et_password" />

@@ -1,6 +1,7 @@
 package ru.itis.androidtechpracticeapp.data.repositories
 
 import ru.itis.androidtechpracticeapp.data.api.MyApi
+import ru.itis.androidtechpracticeapp.data.api.dto.PostDto
 import ru.itis.androidtechpracticeapp.data.api.responses.PostResponse
 import ru.itis.androidtechpracticeapp.data.db.dao.PostDao
 import ru.itis.androidtechpracticeapp.data.db.models.PostDb
@@ -34,6 +35,10 @@ class PostsRepositoryImpl(
         postDao.save(PostDb.fromList(postsResponse))
 
         return getReadyPostsList()
+    }
+
+    override suspend fun createPost(post: PostDto) {
+        myApi.createPost(post)
     }
 
     private suspend fun getReadyPost(id: Int): PostData {

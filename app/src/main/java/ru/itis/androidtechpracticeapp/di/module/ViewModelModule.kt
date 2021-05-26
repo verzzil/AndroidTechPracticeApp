@@ -17,6 +17,7 @@ import ru.itis.androidtechpracticeapp.presentation.fragments.messages.CurrentCha
 import ru.itis.androidtechpracticeapp.presentation.fragments.myacts.CreateActViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.myacts.MyActsViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.myacts.SendActProofViewModel
+import ru.itis.androidtechpracticeapp.presentation.fragments.news.CreatePostViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.news.CurrentNewsViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.news.NewsViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.profile.ProfileViewModel
@@ -104,5 +105,10 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(SignUpViewModel::class)
     fun bindSignUpViewModel(viewModel: SignUpViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CreatePostViewModel::class)
+    fun bindCreatePostViewModel(viewModel: CreatePostViewModel): ViewModel
 
 }

@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_news_fragment_to_myMapFragment"
             app:destination="@id/my_map_fragment" />
+        <action
+            android:id="@+id/action_news_fragment_to_createPostFragment2"
+            app:destination="@id/create_post_fragment" />
     </fragment>
     <fragment
         android:id="@+id/my_tasks_fragment"
@@ -172,4 +175,9 @@
         android:name="ru.itis.androidtechpracticeapp.presentation.fragments.map.MyMapFragment"
         android:label="fragment_my_map"
         tools:layout="@layout/fragment_my_map" />
+    <fragment
+        android:id="@+id/create_post_fragment"
+        android:name="ru.itis.androidtechpracticeapp.presentation.fragments.news.CreatePostFragment"
+        android:label="fragment_create_post"
+        tools:layout="@layout/fragment_create_post" />
 </navigation>

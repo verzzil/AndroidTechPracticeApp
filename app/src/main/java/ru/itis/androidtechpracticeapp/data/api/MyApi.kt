@@ -97,4 +97,7 @@ interface MyApi {
     @POST("/sign-up")
     suspend fun signUp(@Body signUpDto: SignUpDto): UserResponse
 
+    @POST("/posts/create")
+    suspend fun createPost(@Body post: PostDto)
+
 }

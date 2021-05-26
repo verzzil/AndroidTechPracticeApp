@@ -76,4 +76,9 @@ class MyMapFragment : Fragment() {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        hideBars.showBottomBar()
+    }
+
 }

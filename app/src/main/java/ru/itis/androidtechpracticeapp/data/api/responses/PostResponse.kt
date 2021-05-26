@@ -10,7 +10,9 @@ data class PostResponse(
     @SerializedName("id")
     var id: Int,
     @SerializedName("title")
-    var title: String
+    var title: String,
+    @SerializedName("link")
+    var link: String
 ) {
 
 }
