@@ -1,5 +1,6 @@
 package ru.itis.androidtechpracticeapp.presentation.models
 
+import ru.itis.androidtechpracticeapp.data.api.responses.SocialLinksResponse
 import ru.itis.androidtechpracticeapp.data.models.UserData
 import ru.itis.androidtechpracticeapp.domain.models.UserDomain
 import java.util.*
@@ -13,33 +14,10 @@ data class UserPresentation(
     var lastName: String,
     var role: String,
     var selfCoefficient: Double,
+    var socialLinks: List<SocialLinksResponse>,
 ) {
 
     companion object {
-        var users = listOf(
-            UserPresentation(
-                1,
-                1,
-                20000,
-                "xannanov.albert@mail.ru",
-                "Albert",
-                "Khannanov",
-                "Admin",
-                1.0,
-            ),
-            UserPresentation(
-                2,
-                2,
-                1500,
-                "timur.batrshin@mail.ru",
-                "Timur",
-                "Batrshin",
-                "User",
-                1.0,
-            ),
-        )
-
-        val testUser = users[0]
 
         fun from(user: UserDomain): UserPresentation =
             UserPresentation(
@@ -50,7 +28,8 @@ data class UserPresentation(
                 user.firstName,
                 user.lastName,
                 user.role,
-                user.selfCoefficient
+                user.selfCoefficient,
+                user.socialLinks
             )
 
         fun fromList(users: List<UserDomain>): List<UserPresentation> =

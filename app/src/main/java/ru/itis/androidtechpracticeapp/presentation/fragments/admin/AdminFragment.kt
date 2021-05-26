@@ -1,20 +1,39 @@
 package ru.itis.androidtechpracticeapp.presentation.fragments.admin
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import kotlinx.android.synthetic.main.fragment_admin.*
 import ru.itis.androidtechpracticeapp.R
+import ru.itis.androidtechpracticeapp.presentation.MainActivity
+import ru.itis.androidtechpracticeapp.presentation.adapters.AdminFrAdapter
+import ru.itis.androidtechpracticeapp.utils.Key
+import javax.inject.Inject
 
 class AdminFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AdminFragment()
-    }
+    private lateinit var navController: NavController
+    private lateinit var adminFrAdapter: AdminFrAdapter
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: AdminViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        navController = (activity as MainActivity).navController
+        (activity as MainActivity).viewModelComponent.inject(this)
+        viewModel =
+            ViewModelProvider(this, viewModelFactory).get(AdminViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +42,38 @@ class AdminFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_admin, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AdminViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initObservers()
+        initListeners()
+
+        initUi()
+    }
+
+    private fun initObservers() {
+        viewModel.getActs().observe(viewLifecycleOwner, {
+            adminFrAdapter.submitList(it)
+        })
+    }
+
+    private fun initListeners() {
+        viewModel.getModeratorActs((activity as MainActivity).sp.getInt(Key.USER_ID, 0))
+    }
+
+    private fun initUi() {
+        adminFrAdapter = AdminFrAdapter {
+            navController.navigate(
+                AdminFragmentDirections.actionAdminFragmentToAdminDecisionFragment(
+                    it.id,
+                    it.type,
+                    it.photoLink,
+                    it.text
+                )
+            )
+        }
+
+        admin_rv_proofs.adapter = adminFrAdapter
     }
 
 }

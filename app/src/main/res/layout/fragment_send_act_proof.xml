@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragments.mytasks.SendActProofFragment">
+    tools:context=".presentation.fragments.myacts.SendActProofFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_line"

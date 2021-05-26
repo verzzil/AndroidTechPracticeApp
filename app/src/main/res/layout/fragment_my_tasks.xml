@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.mytasks.MyActsFragment">
+    tools:context=".presentation.fragments.myacts.MyActsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/my_tasks_change_list_block"

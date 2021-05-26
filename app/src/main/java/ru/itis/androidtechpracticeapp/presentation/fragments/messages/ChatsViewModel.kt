@@ -26,6 +26,11 @@ class ChatsViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val result = chatUseCase.getAllUserChats(userId)
+                for (cp: ChatPresentation in result) {
+                    if (cp.chatType != "GROUP") {
+                        cp.title = chatUseCase.getTitleDialog(cp.id, userId)
+                    }
+                }
                 chats = ChatPresentation.cloneData(result)
                 chatsLiveData.postValue(
                     result

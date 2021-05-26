@@ -2,25 +2,20 @@ package ru.itis.androidtechpracticeapp.presentation
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.di.Injector
 import ru.itis.androidtechpracticeapp.di.component.ViewModelComponent
-import ru.itis.androidtechpracticeapp.presentation.fragments.mytasks.SendActProofViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.news.NewsFragmentDirections
 import ru.itis.androidtechpracticeapp.utils.Consts
 import ru.itis.androidtechpracticeapp.utils.Key

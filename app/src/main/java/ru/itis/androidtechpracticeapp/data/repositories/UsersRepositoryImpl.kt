@@ -1,13 +1,16 @@
 package ru.itis.androidtechpracticeapp.data.repositories
 
-import android.util.Log
+import android.accounts.NetworkErrorException
 import ru.itis.androidtechpracticeapp.data.api.MyApi
 import ru.itis.androidtechpracticeapp.data.api.dto.*
+import ru.itis.androidtechpracticeapp.data.api.responses.ActProofResponse
 import ru.itis.androidtechpracticeapp.data.api.responses.ActResponse
+import ru.itis.androidtechpracticeapp.data.api.responses.ApprovedProofsResponse
 import ru.itis.androidtechpracticeapp.data.api.responses.UserResponse
 import ru.itis.androidtechpracticeapp.data.db.dao.UserDao
 import ru.itis.androidtechpracticeapp.data.db.models.UserDb
 import ru.itis.androidtechpracticeapp.data.models.UserData
+import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
 
 class UsersRepositoryImpl(
     private val userDao: UserDao,
@@ -18,12 +21,30 @@ class UsersRepositoryImpl(
         val userResp: UserResponse
         try {
             userResp = myApi.getUserById(userId)
+            return UserData.from(userResp)
         } catch (e: Exception) {
-            return UserData.from(userDao.findById(userId))
+            throw NetworkErrorException(e)
         }
-        userDao.save(UserDb.from(userResp))
+    }
 
-        return UserData.from(userDao.findById(userResp.id))
+    override suspend fun getByEmailLike(query: String): List<UserData> {
+        return UserData.fromList(myApi.getByEmailLike(query))
+    }
+
+    override suspend fun signUp(signUpDto: SignUpDto): UserResponse {
+        return myApi.signUp(signUpDto)
+    }
+
+    override suspend fun sendAct(userActDto: UserActDto) {
+        myApi.createUserAct(userActDto)
+    }
+
+    override suspend fun sendAct(groupActDto: GroupActDto) {
+        myApi.createGroupAct(groupActDto)
+    }
+
+    override suspend fun createGroup(groupDto: GroupDto) {
+        myApi.createGroup(groupDto)
     }
 
     override suspend fun changeUserSettings(profileSettingsDto: ProfileSettingsDto, userId: Int) {
@@ -33,7 +54,6 @@ class UsersRepositoryImpl(
     override suspend fun getActsList(userId: Int): List<ActResponse> {
         val response = myApi.getActsList(userId)
         processData(response, userId)
-        Log.i("sdfqerqweasdf", "${response}")
         return response
     }
 
@@ -48,11 +68,11 @@ class UsersRepositoryImpl(
         return response
     }
 
-    override suspend fun sendAct(userActProofDto: UserActProofDto) {
+    override suspend fun sendActProof(userActProofDto: UserActProofDto) {
         myApi.createUserProof(userActProofDto)
     }
 
-    override suspend fun sendAct(groupActProofDto: GroupActProofDto) {
+    override suspend fun sendActProof(groupActProofDto: GroupActProofDto) {
         myApi.createGroupProof(groupActProofDto)
     }
 
@@ -69,9 +89,29 @@ class UsersRepositoryImpl(
             if (act.type == "USER") {
                 act.isAdmin = true
             } else {
-                act.isAdmin = userId == myApi.getMainUserFromGroup(act.id).idMainUser
+                act.isAdmin = userId == myApi.getMainUserFromGroup(act.foreignId).idMainUser
             }
         }
+    }
+
+    override suspend fun getModeratorActs(moderatorId: Int): List<ActProofResponse> {
+        return myApi.getModeratorActs(moderatorId)
+    }
+
+    override suspend fun getApprovedProofs(userId: Int): List<ApprovedProofsResponse> {
+        return myApi.getApprovedProofs(userId)
+    }
+
+    override suspend fun getTopUsers(): List<UserPresentation> {
+        return myApi.getTopUsers()
+    }
+
+    override suspend fun sendGroupDecision(decision: ProofDecisionDto) {
+        myApi.sendGroupDecision(decision)
+    }
+
+    override suspend fun sendUserDecision(decision: ProofDecisionDto) {
+        myApi.sendUserDecision(decision)
     }
 
 }

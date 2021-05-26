@@ -5,9 +5,9 @@ data class ActResponse(
     @SerializedName("actStatus")
     var actStatus: String,
     @SerializedName("dateOfCreation")
-    var dateOfCreation: Int,
+    var dateOfCreation: Long,
     @SerializedName("dateOfEnding")
-    var dateOfEnding: Int,
+    var dateOfEnding: Long,
     @SerializedName("id")
     var id: Int,
     @SerializedName("reward")
@@ -16,5 +16,7 @@ data class ActResponse(
     var title: String,
     @SerializedName("type")
     var type: String,
+    @SerializedName("foreignId")
+    var foreignId: Int,
     var isAdmin: Boolean?
 )

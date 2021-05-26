@@ -1,4 +1,4 @@
-package ru.itis.androidtechpracticeapp.presentation.fragments.mytasks
+package ru.itis.androidtechpracticeapp.presentation.fragments.myacts
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,7 +24,7 @@ class SendActProofViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 if (actType == "USER") {
-                    actsUseCase.sendAct(
+                    actsUseCase.sendActProof(
                         UserActProofDto(
                             actId,
                             link,
@@ -34,7 +34,7 @@ class SendActProofViewModel @Inject constructor(
                         )
                     )
                 } else {
-                    actsUseCase.sendAct(
+                    actsUseCase.sendActProof(
                         GroupActProofDto(
                             actId,
                             link,

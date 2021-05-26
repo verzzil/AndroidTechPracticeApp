@@ -30,9 +30,6 @@ class NewsFragment : Fragment(), CoroutineScope by CoroutineScope(Dispatchers.IO
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject
-    lateinit var postsRepository: PostsRepository
-
     companion object {
         fun newInstance() = NewsFragment()
     }

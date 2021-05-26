@@ -1,4 +1,4 @@
-package ru.itis.androidtechpracticeapp.presentation.fragments.mytasks
+package ru.itis.androidtechpracticeapp.presentation.fragments.myacts
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -1,5 +1,6 @@
 package ru.itis.androidtechpracticeapp.domain.models
 
+import ru.itis.androidtechpracticeapp.data.api.responses.SocialLinksResponse
 import ru.itis.androidtechpracticeapp.data.db.models.UserDb
 import ru.itis.androidtechpracticeapp.data.models.UserData
 
@@ -12,6 +13,7 @@ data class UserDomain(
     var lastName: String,
     var role: String,
     var selfCoefficient: Double,
+    var socialLinks: List<SocialLinksResponse>,
 ) {
 
     companion object {
@@ -24,7 +26,8 @@ data class UserDomain(
                 user.firstName,
                 user.lastName,
                 user.role,
-                user.selfCoefficient
+                user.selfCoefficient,
+                user.socialLinks
             )
 
         fun fromList(users: List<UserData>): List<UserDomain> =

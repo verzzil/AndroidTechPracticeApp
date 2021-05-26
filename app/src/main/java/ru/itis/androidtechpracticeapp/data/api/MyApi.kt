@@ -1,14 +1,9 @@
 package ru.itis.androidtechpracticeapp.data.api
 
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import ru.itis.androidtechpracticeapp.data.api.dto.GroupActProofDto
-import ru.itis.androidtechpracticeapp.data.api.dto.ProfileSettingsDto
-import ru.itis.androidtechpracticeapp.data.api.dto.SignInDto
-import ru.itis.androidtechpracticeapp.data.api.dto.UserActProofDto
+import retrofit2.http.*
+import ru.itis.androidtechpracticeapp.data.api.dto.*
 import ru.itis.androidtechpracticeapp.data.api.responses.*
+import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
 
 
 interface MyApi {
@@ -62,5 +57,44 @@ interface MyApi {
 
     @POST("/group/act/proof/create")
     suspend fun createGroupProof(@Body groupActProofDto: GroupActProofDto)
+
+    @GET("/users/email?")
+    suspend fun getByEmailLike(@Query("q") query: String): List<UserResponse>
+
+    @POST("/group/act/create")
+    suspend fun createGroupAct(@Body groupActDto: GroupActDto)
+
+    @POST("/user/act/create")
+    suspend fun createUserAct(@Body userActDto: UserActDto)
+
+    @POST("/group/create")
+    suspend fun createGroup(@Body groupActDto: GroupDto)
+
+    @GET("/moderator/get-acts/{moderatorId}")
+    suspend fun getModeratorActs(@Path("moderatorId") moderatorId: Int): List<ActProofResponse>
+
+    @POST("/user/act/proof/moderator-decision")
+    suspend fun sendUserDecision(@Body proof: ProofDecisionDto)
+
+    @POST("/group/act/proof/moderator-decision")
+    suspend fun sendGroupDecision(@Body proof: ProofDecisionDto)
+
+    @GET("/user/proofs/approved/{userId}")
+    suspend fun getApprovedProofs(@Path("userId") userId: Int): List<ApprovedProofsResponse>
+
+    @GET("/users/top")
+    suspend fun getTopUsers(): List<UserPresentation>
+
+    @GET("/chat/find-user/{chatId}/{userId}")
+    suspend fun getTitleDialog(
+        @Path("chatId") chatId: Int,
+        @Path("userId") userId: Int,
+    ): TitleDialog
+
+    @POST("/chat/create")
+    suspend fun createChat(@Body twoUsersChatDto: TwoUsersChatDto): ChatResponse
+
+    @POST("/sign-up")
+    suspend fun signUp(@Body signUpDto: SignUpDto): UserResponse
 
 }

@@ -9,4 +9,8 @@ interface ChatUseCase {
 
     suspend fun getChatCorrespondence(chatId: Int): List<MessagePresentation>
 
+    suspend fun getTitleDialog(chatId: Int, userId: Int): String
+
+    suspend fun createChat(myId: Int, anotherUserId: Int): Int
+
 }

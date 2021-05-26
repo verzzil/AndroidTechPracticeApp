@@ -2,7 +2,7 @@ package ru.itis.androidtechpracticeapp.presentation.models
 
 data class ChatPresentation(
     val id: Int,
-    val title: String,
+    var title: String,
     val chatType: String,
     var lastMessage: MessagePresentation
 ) {

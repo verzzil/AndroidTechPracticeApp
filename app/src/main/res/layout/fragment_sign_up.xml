@@ -65,31 +65,14 @@
         app:layout_constraintTop_toBottomOf="@id/sign_up_et_last_name" />
 
     <EditText
-        android:id="@+id/et_repeat_password"
+        android:id="@+id/sign_up_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Повторите пароль"
+        android:hint="Введите email"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@id/right_line"
         app:layout_constraintStart_toStartOf="@id/left_line"
         app:layout_constraintTop_toBottomOf="@id/sign_up_et_password" />
-
-    <TextView
-        android:id="@+id/tv_choose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Дата рождения"
-        app:layout_constraintStart_toEndOf="@id/left_line"
-        app:layout_constraintTop_toBottomOf="@id/et_repeat_password" />
-
-    <TextView
-        android:id="@+id/tv_choose_birthday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Выбрать дату"
-        app:layout_constraintEnd_toEndOf="@id/right_line"
-        app:layout_constraintStart_toEndOf="@id/tv_choose"
-        app:layout_constraintTop_toTopOf="@id/tv_choose" />
 
     <Button
         android:id="@+id/btn_sign_up"
@@ -98,6 +81,6 @@
         android:text="Регистрация"
         app:layout_constraintEnd_toEndOf="@id/right_line"
         app:layout_constraintStart_toStartOf="@id/left_line"
-        app:layout_constraintTop_toBottomOf="@id/tv_choose_birthday" />
+        app:layout_constraintTop_toBottomOf="@id/sign_up_email" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

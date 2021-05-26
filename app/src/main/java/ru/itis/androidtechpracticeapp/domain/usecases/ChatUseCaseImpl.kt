@@ -5,7 +5,7 @@ import ru.itis.androidtechpracticeapp.presentation.models.ChatPresentation
 import ru.itis.androidtechpracticeapp.presentation.models.MessagePresentation
 
 class ChatUseCaseImpl(
-    private val chatRepository: ChatRepository
+    private val chatRepository: ChatRepository,
 ) : ChatUseCase {
     override suspend fun getAllUserChats(userId: Int): List<ChatPresentation> {
         return chatRepository.getAllUserChats(userId)
@@ -13,5 +13,13 @@ class ChatUseCaseImpl(
 
     override suspend fun getChatCorrespondence(chatId: Int): List<MessagePresentation> {
         return chatRepository.getChatCorrespondence(chatId)
+    }
+
+    override suspend fun getTitleDialog(chatId: Int, userId: Int): String {
+        return chatRepository.getTitleDialog(chatId, userId)
+    }
+
+    override suspend fun createChat(myId: Int, anotherUserId: Int): Int {
+        return chatRepository.createChat(myId, anotherUserId)
     }
 }

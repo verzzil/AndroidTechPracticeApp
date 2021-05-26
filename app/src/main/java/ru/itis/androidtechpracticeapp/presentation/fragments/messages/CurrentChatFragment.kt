@@ -108,4 +108,5 @@ class CurrentChatFragment : Fragment() {
         rv_current_chat.adapter = rvCorrespondenceAdapter
     }
 
+
 }

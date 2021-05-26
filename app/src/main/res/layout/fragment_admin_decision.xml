@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.fragments.admin.AdminDecisionFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.21" />
+
+    <TextView
+        android:id="@+id/admin_decision_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="http://"
+        android:textSize="@dimen/small_text"
+        app:layout_constraintStart_toStartOf="@id/left_line"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/admin_decision_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="http://"
+        android:textSize="@dimen/small_text"
+        app:layout_constraintStart_toStartOf="@id/left_line"
+        app:layout_constraintTop_toBottomOf="@id/admin_decision_link"/>
+
+    <EditText
+        android:id="@+id/admin_decision_reward"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Сколько будем начислять ?"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@id/right_line"
+        app:layout_constraintStart_toStartOf="@id/left_line"
+        app:layout_constraintTop_toBottomOf="@id/top_line" />
+
+    <Button
+        android:id="@+id/admin_decision_approve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Приянть"
+        app:layout_constraintEnd_toStartOf="@id/admin_decision_decline"
+        app:layout_constraintStart_toStartOf="@id/left_line"
+        app:layout_constraintTop_toBottomOf="@id/admin_decision_reward" />
+
+    <Button
+        android:id="@+id/admin_decision_decline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Отклонить"
+        app:layout_constraintEnd_toEndOf="@id/right_line"
+        app:layout_constraintStart_toEndOf="@id/admin_decision_approve"
+        app:layout_constraintTop_toBottomOf="@id/admin_decision_reward" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

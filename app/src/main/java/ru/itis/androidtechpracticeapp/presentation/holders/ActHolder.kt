@@ -22,7 +22,7 @@ class ActHolder(
         title.text = task.title
         status.text = task.actStatus
 
-        if (task.isAdmin == false) {
+        if (task.isAdmin == false || task.actStatus == "END") {
             btn.setBackgroundColor(Color.GRAY)
         }
 

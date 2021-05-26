@@ -74,7 +74,6 @@ class ChatsFragment : Fragment() {
     }
 
     private fun initListeners() {
-        Log.i("dfwqerqwerqwer", "${(activity as MainActivity).sp.getInt(Key.USER_ID, -50)}")
         viewModel.findAllChats((activity as MainActivity).sp.getInt(Key.USER_ID, 0))
         viewModel.startWSConnection("ws://${Consts.HOST_NAME}/wschat/${(activity as MainActivity).sp.getInt(Key.USER_ID, 0)}")
     }

@@ -1,6 +1,7 @@
 package ru.itis.androidtechpracticeapp.data.repositories
 
 import ru.itis.androidtechpracticeapp.data.api.MyApi
+import ru.itis.androidtechpracticeapp.data.api.dto.TwoUsersChatDto
 import ru.itis.androidtechpracticeapp.data.api.responses.ChatResponse
 import ru.itis.androidtechpracticeapp.presentation.models.ChatPresentation
 import ru.itis.androidtechpracticeapp.presentation.models.MessagePresentation
@@ -23,12 +24,20 @@ class ChatRepositoryImpl(
             )
         }
 
-        return result
+        return result.sortedByDescending { chatPresentation -> chatPresentation.lastMessage.sendDate }
     }
 
     override suspend fun getChatCorrespondence(chatId: Int): List<MessagePresentation> {
         val response = myApi.getChatCorrespondence(chatId)
 
         return MessagePresentation.fromList(response)
+    }
+
+    override suspend fun getTitleDialog(chatId: Int, userId: Int): String {
+        return myApi.getTitleDialog(chatId, userId).dialogTitle
+    }
+
+    override suspend fun createChat(myId: Int, anotherUserId: Int): Int {
+        return myApi.createChat(TwoUsersChatDto(myId, anotherUserId)).id
     }
 }

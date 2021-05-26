@@ -18,4 +18,5 @@
     <string name="create_post_task">Создать пост</string>
     <string name="logout">Выйти</string>
     <string name="profile_settings">Настройки профиля</string>
+    <string name="my_map">Карта добра</string>
 </resources>

@@ -1,4 +1,4 @@
-package ru.itis.androidtechpracticeapp.presentation.fragments.mytasks
+package ru.itis.androidtechpracticeapp.presentation.fragments.myacts
 
 import android.content.Context
 import android.graphics.Color
@@ -107,11 +107,11 @@ class MyActsFragment : Fragment() {
 
     private fun initAdapter() {
         rvTasksAdapter = ActsAdapter {
-            Log.i("clickedblya", "click")
-            if (it.isAdmin == false) {
-                Toast.makeText(activity as MainActivity,
-                    "Отправить доказательство на акт группы могут только организаторы группы",
-                    Toast.LENGTH_LONG).show()
+            if (it.isAdmin == false || it.actStatus == "END") {
+                if (it.actStatus == "END") {
+                    showToast("Вы уже завершили этот акт")
+                }
+                showToast("Отправить доказательство на акт группы могут только организаторы группы")
             } else {
                 navController.navigate(
                     MyActsFragmentDirections.actionMyTasksFragmentToSendActProofFragment(
@@ -122,6 +122,10 @@ class MyActsFragment : Fragment() {
             }
         }
         my_tasks_rv_task.adapter = rvTasksAdapter
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText((activity as MainActivity), text, Toast.LENGTH_LONG).show()
     }
 
 }
