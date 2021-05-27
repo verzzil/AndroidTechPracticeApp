@@ -22,6 +22,10 @@ class UserUseCaseImpl(
         return UserPresentation.from(repoResponse)
     }
 
+    override suspend fun saveFirebaseToken(userId: Int, token: String) {
+        usersRepository.saveFirebaseToken(userId, token)
+    }
+
     override suspend fun getByEmailLike(query: String): List<UserPresentation> {
         val responseRepo = UserDomain.fromList(usersRepository.getByEmailLike(query))
         return UserPresentation.fromList(responseRepo)

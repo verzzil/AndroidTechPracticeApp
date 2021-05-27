@@ -117,6 +117,10 @@ class UsersRepositoryImpl(
         myApi.sendGroupDecision(decision)
     }
 
+    override suspend fun saveFirebaseToken(userId: Int, token: String) {
+        myApi.saveFirebaseToken(userId, token)
+    }
+
     override suspend fun sendUserDecision(decision: ProofDecisionDto) {
         myApi.sendUserDecision(decision)
     }

@@ -3,6 +3,7 @@ package ru.itis.androidtechpracticeapp.presentation
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -15,6 +16,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.di.Injector
@@ -52,6 +55,13 @@ class MainActivity : AppCompatActivity(), ToggleBars {
             ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         sp = getSharedPreferences(Consts.SP_NAME, MODE_PRIVATE)
 
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if(task.isSuccessful) {
+                Log.i("asdfqw", "${task.result}")
+                viewModel.saveFirebaseToken(sp.getInt(Key.USER_ID, 0), task.result)
+            }
+        }
+
         initObservers()
         initListeners()
 
@@ -80,6 +90,9 @@ class MainActivity : AppCompatActivity(), ToggleBars {
             else
                 navNewHeader.findViewById<ShapeableImageView>(R.id.nav_header_avatar)
                     .setImageResource(R.drawable.mock_avatar)
+        })
+        viewModel.getErrors().observe(this, {
+            Toast.makeText(this, "Нет интернет соединения", Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -129,6 +142,11 @@ class MainActivity : AppCompatActivity(), ToggleBars {
                     true
                 }
             }
+        }
+        nav_view.menu.getItem(0).setOnMenuItemClickListener {
+            navController.navigate(NewsFragmentDirections.actionNewsFragmentToProfileFragment(sp.getInt(Key.USER_ID, 0)))
+            drawer_layout.closeDrawer(GravityCompat.START)
+            return@setOnMenuItemClickListener true
         }
         nav_view.menu.getItem(7).setOnMenuItemClickListener {
             sp.edit().clear().apply()

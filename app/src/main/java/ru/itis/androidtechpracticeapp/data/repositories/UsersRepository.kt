@@ -40,4 +40,6 @@ interface UsersRepository {
 
     suspend fun signUp(signUpDto: SignUpDto): UserResponse
 
+    suspend fun saveFirebaseToken(userId: Int, token: String)
+
 }

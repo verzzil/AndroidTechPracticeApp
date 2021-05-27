@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "869852180780",
+    "project_id": "androidtechpractice",
+    "storage_bucket": "androidtechpractice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869852180780:android:d2b5e9d79d7e5006fe7c89",
+        "android_client_info": {
+          "package_name": "ru.itis.androidtechpracticeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869852180780-l1c10qkgo46cv13uvl3rp9l7bui5ol57.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6LcKLWPgBhBNAQpvZ3SQ3j1Z7gCqIYnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869852180780-l1c10qkgo46cv13uvl3rp9l7bui5ol57.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

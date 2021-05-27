@@ -100,4 +100,7 @@ interface MyApi {
     @POST("/posts/create")
     suspend fun createPost(@Body post: PostDto)
 
+    @POST("/user/{userId}/{token}")
+    suspend fun saveFirebaseToken(@Path("userId") userId: Int, @Path("token") token: String)
+
 }

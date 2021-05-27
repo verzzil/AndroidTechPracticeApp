@@ -18,26 +18,39 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val currentUser: MutableLiveData<UserPresentation> = MutableLiveData()
+    private val errors: MutableLiveData<Exception> = MutableLiveData()
 
     fun findUser(userId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val user = userUseCase.getById(userId)
-                if (user.photoLink != null) {
-                    try {
-                        user.bitmap =
-                            BitmapFactory.decodeStream(URL(user.photoLink).openConnection()
-                                .getInputStream())
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                try {
+                    val user = userUseCase.getById(userId)
+                    if (user.photoLink != null) {
+                        try {
+                            user.bitmap =
+                                BitmapFactory.decodeStream(URL(user.photoLink).openConnection()
+                                    .getInputStream())
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     }
+                    currentUser.postValue(user)
+                } catch (e: Exception) {
+                    errors.postValue(e)
                 }
-                currentUser.postValue(user)
+            }
+        }
+    }
 
+    fun saveFirebaseToken(userId: Int, token: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                userUseCase.saveFirebaseToken(userId, token)
             }
         }
     }
 
     fun getCurrentUser(): MutableLiveData<UserPresentation> = currentUser
+    fun getErrors(): MutableLiveData<Exception> = errors
 
 }
