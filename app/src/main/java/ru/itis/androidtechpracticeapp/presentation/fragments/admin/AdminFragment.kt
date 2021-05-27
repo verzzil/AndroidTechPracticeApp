@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import kotlinx.android.synthetic.main.fragment_admin.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
 import ru.itis.androidtechpracticeapp.presentation.adapters.AdminFrAdapter
 import ru.itis.androidtechpracticeapp.utils.Key
+import java.lang.Exception
 import javax.inject.Inject
 
 class AdminFragment : Fragment() {
@@ -54,6 +56,9 @@ class AdminFragment : Fragment() {
     private fun initObservers() {
         viewModel.getActs().observe(viewLifecycleOwner, {
             adminFrAdapter.submitList(it)
+        })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity), "Нет интернет соединения", Toast.LENGTH_SHORT).show()
         })
     }
 

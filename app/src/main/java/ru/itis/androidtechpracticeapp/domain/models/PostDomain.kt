@@ -9,6 +9,7 @@ data class PostDomain(
     val title: String,
     val desc: String,
     val author: UserDomain,
+    val link: String
 ) {
 
     companion object {
@@ -17,7 +18,8 @@ data class PostDomain(
                 post.id,
                 post.title,
                 post.desc,
-                UserDomain.from(post.author)
+                UserDomain.from(post.author),
+                post.link
             )
 
         fun fromList(posts: List<PostData>): List<PostDomain> =

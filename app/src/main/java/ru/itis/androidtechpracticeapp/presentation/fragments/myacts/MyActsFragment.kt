@@ -17,6 +17,7 @@ import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
 import ru.itis.androidtechpracticeapp.presentation.adapters.ActsAdapter
 import ru.itis.androidtechpracticeapp.utils.Key
+import java.lang.Exception
 import javax.inject.Inject
 
 class MyActsFragment : Fragment() {
@@ -31,13 +32,6 @@ class MyActsFragment : Fragment() {
 
     lateinit var viewModel: MyActsViewModel
     lateinit var rvTasksAdapter: ActsAdapter
-//    private val viewModel: MyTasksViewModel by activityViewModels(
-//        factoryProducer = {
-//            ViewModelFactory(
-//                testUseCase = TestUseCase()
-//            )
-//        }
-//    )
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -61,7 +55,6 @@ class MyActsFragment : Fragment() {
 
         initSubscribes()
         initListeners(userId)
-
         initUi()
 
     }
@@ -69,6 +62,9 @@ class MyActsFragment : Fragment() {
     private fun initSubscribes() {
         viewModel.getList().observe(viewLifecycleOwner, {
             rvTasksAdapter.submitList(it)
+        })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity), "Нет интернет соединения", Toast.LENGTH_SHORT).show()
         })
     }
 

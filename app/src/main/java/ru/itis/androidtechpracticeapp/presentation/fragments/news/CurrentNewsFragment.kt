@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_current_news.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
+import java.lang.Exception
 import javax.inject.Inject
 
 class CurrentNewsFragment : Fragment() {
@@ -37,7 +39,7 @@ class CurrentNewsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_current_news, container, false)
     }
@@ -47,6 +49,7 @@ class CurrentNewsFragment : Fragment() {
 
         initObservers()
         initListeners()
+
     }
 
     private fun initObservers() {
@@ -54,6 +57,11 @@ class CurrentNewsFragment : Fragment() {
             current_news_title.text = it.title
             current_news_content.text = it.desc
             current_news_author.text = it.author.getFullName()
+        })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity),
+                "Нет интернет соединения",
+                Toast.LENGTH_SHORT).show()
         })
     }
 

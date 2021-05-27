@@ -34,6 +34,20 @@ data class UserData(
 
         fun fromList(users: List<UserResponse>): List<UserData> =
             users.map(::from)
+
+        fun from(user: UserDb): UserData =
+            UserData(
+                user.id,
+                user.birthday,
+                user.cash,
+                user.email,
+                user.firstName,
+                user.lastName,
+                user.role,
+                user.selfCoefficient,
+                socialLinks = listOf(),
+                null
+            )
     }
 
 }

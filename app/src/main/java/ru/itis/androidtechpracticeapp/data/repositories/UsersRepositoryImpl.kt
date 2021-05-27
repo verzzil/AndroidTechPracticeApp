@@ -1,8 +1,5 @@
 package ru.itis.androidtechpracticeapp.data.repositories
 
-import android.accounts.NetworkErrorException
-import android.graphics.BitmapFactory
-import android.util.Log
 import ru.itis.androidtechpracticeapp.data.api.MyApi
 import ru.itis.androidtechpracticeapp.data.api.dto.*
 import ru.itis.androidtechpracticeapp.data.api.responses.ActProofResponse
@@ -13,7 +10,6 @@ import ru.itis.androidtechpracticeapp.data.db.dao.UserDao
 import ru.itis.androidtechpracticeapp.data.db.models.UserDb
 import ru.itis.androidtechpracticeapp.data.models.UserData
 import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
-import java.net.URL
 
 class UsersRepositoryImpl(
     private val userDao: UserDao,
@@ -22,11 +18,12 @@ class UsersRepositoryImpl(
 
     override suspend fun findById(userId: Int): UserData {
         val userResp: UserResponse
-        try {
+        return try {
             userResp = myApi.getUserById(userId)
-            return UserData.from(userResp)
+            userDao.save(UserDb.from(userResp))
+            UserData.from(userResp)
         } catch (e: Exception) {
-            throw NetworkErrorException(e)
+            UserData.from(userDao.findById(userId))
         }
     }
 
@@ -81,6 +78,7 @@ class UsersRepositoryImpl(
 
     override suspend fun signIn(email: String, password: String): TokenDto {
         val response = myApi.signIn(SignInDto(email, password))
+        userDao.save(UserDb.from(myApi.getUserById(response.userId)))
         return TokenDto(response.userId, response.token)
     }
 
@@ -106,7 +104,13 @@ class UsersRepositoryImpl(
     }
 
     override suspend fun getTopUsers(): List<UserPresentation> {
-        return myApi.getTopUsers()
+        return try {
+            val resp = myApi.getTopUsers()
+            userDao.save(UserDb.fromPresList(resp))
+            myApi.getTopUsers()
+        } catch (e : Exception) {
+            UserPresentation.fromDbList(userDao.findAll())
+        }
     }
 
     override suspend fun sendGroupDecision(decision: ProofDecisionDto) {

@@ -29,6 +29,7 @@ import ru.itis.androidtechpracticeapp.presentation.adapters.AddedToGroupAdapter
 import ru.itis.androidtechpracticeapp.presentation.itemDecorators.NewsItemDecorator
 import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
 import ru.itis.androidtechpracticeapp.utils.Key
+import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -69,9 +70,8 @@ class CreateActFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initObservers()
         initListeners()
-
+        initObservers()
         initUi()
     }
 
@@ -88,6 +88,10 @@ class CreateActFragment : Fragment() {
         viewModel.getSelectedUsers().observe(viewLifecycleOwner, {
             chooseUsersIds = it.toList().map { userPresentation -> userPresentation.id }
             rvAdded.submitList(it.toList())
+        })
+
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity), "Нет интернет соединения", Toast.LENGTH_SHORT).show()
         })
     }
 

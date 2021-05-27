@@ -2,13 +2,10 @@ package ru.itis.androidtechpracticeapp.presentation
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -46,11 +43,6 @@ class MainActivity : AppCompatActivity(), ToggleBars {
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModelComponent = Injector.viewModelComponent()
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window: Window = window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.navigationBarColor = Color.TRANSPARENT
-        }
         setContentView(R.layout.activity_main)
 
         viewModelComponent.inject(this)
@@ -60,6 +52,23 @@ class MainActivity : AppCompatActivity(), ToggleBars {
             ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         sp = getSharedPreferences(Consts.SP_NAME, MODE_PRIVATE)
 
+        initObservers()
+        initListeners()
+
+        initUi()
+
+    }
+
+    private fun initListeners() {
+        try {
+            viewModel.findUser(sp.getInt(Key.USER_ID, 0))
+        } catch (e: Exception) {
+            Toast.makeText(this, "Нет интернет соединения", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun initObservers() {
         viewModel.getCurrentUser().observe(this, {
             val navNewHeader = nav_view.getHeaderView(0)
             navNewHeader.findViewById<TextView>(R.id.nav_header_username).text = it.getFullName()
@@ -72,11 +81,6 @@ class MainActivity : AppCompatActivity(), ToggleBars {
                 navNewHeader.findViewById<ShapeableImageView>(R.id.nav_header_avatar)
                     .setImageResource(R.drawable.mock_avatar)
         })
-
-        viewModel.findUser(sp.getInt(Key.USER_ID, 0))
-
-        initUi()
-
     }
 
     override fun hideBottomBar() {

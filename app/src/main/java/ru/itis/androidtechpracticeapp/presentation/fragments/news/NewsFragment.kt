@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.fragment_news.*
@@ -29,7 +30,7 @@ class NewsFragment : Fragment(), CoroutineScope by CoroutineScope(Dispatchers.IO
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    // todo обработать вывод ности
+
     companion object {
         fun newInstance() = NewsFragment()
     }
@@ -50,7 +51,7 @@ class NewsFragment : Fragment(), CoroutineScope by CoroutineScope(Dispatchers.IO
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
@@ -67,6 +68,11 @@ class NewsFragment : Fragment(), CoroutineScope by CoroutineScope(Dispatchers.IO
     private fun initObservers() {
         viewModel.getPosts().observe(viewLifecycleOwner, {
             rvNews.submitList(it)
+        })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity),
+                "Нет интернет соединения",
+                Toast.LENGTH_SHORT).show()
         })
     }
 

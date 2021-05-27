@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.AuthActivity
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
 import ru.itis.androidtechpracticeapp.presentation.fragments.messages.ChatsViewModel
 import ru.itis.androidtechpracticeapp.utils.Key
+import java.lang.Exception
 import javax.inject.Inject
 
 class SignInFragment : Fragment() {
@@ -36,7 +38,7 @@ class SignInFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
@@ -67,11 +69,17 @@ class SignInFragment : Fragment() {
             )
             (activity as AuthActivity).finish()
         })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as AuthActivity),
+                "Нет интернет соединения",
+                Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun initListeners() {
         sign_in_btn.setOnClickListener {
-            viewModel.signIn(sign_in_et_login.text.toString(), sign_in_et_password.text.toString())
+            viewModel.signIn(sign_in_et_login.text.toString(),
+                sign_in_et_password.text.toString())
         }
     }
 

@@ -3,6 +3,7 @@ package ru.itis.androidtechpracticeapp.data.db.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.itis.androidtechpracticeapp.data.api.responses.UserResponse
+import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
 
 @Entity(tableName = "user_db")
 data class UserDb(
@@ -33,6 +34,22 @@ data class UserDb(
             )
 
         fun fromList(users: List<UserResponse>): List<UserDb> =
+            users.map(::from)
+
+        fun from(user: UserPresentation): UserDb =
+            UserDb(
+                user.id,
+                user.birthday,
+                user.cash,
+                user.email,
+                user.firstName,
+                user.getFullName(),
+                user.lastName,
+                user.role,
+                user.selfCoefficient
+            )
+
+        fun fromPresList(users: List<UserPresentation>): List<UserDb> =
             users.map(::from)
     }
 

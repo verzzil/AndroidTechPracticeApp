@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import ru.itis.androidtechpracticeapp.presentation.ToggleBars
 import ru.itis.androidtechpracticeapp.presentation.adapters.CorrespondenceAdapter
 import ru.itis.androidtechpracticeapp.utils.Consts
 import ru.itis.androidtechpracticeapp.utils.Key
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -53,7 +55,7 @@ class CurrentChatFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_current_chat, container, false)
     }
@@ -63,7 +65,6 @@ class CurrentChatFragment : Fragment() {
 
         initObservers()
         initListeners()
-
         initUi()
 
     }
@@ -78,6 +79,11 @@ class CurrentChatFragment : Fragment() {
             rvCorrespondenceAdapter.submitList(it) {
                 rv_current_chat.scrollToPosition(rvCorrespondenceAdapter.itemCount - 1)
             }
+        })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity),
+                "Нет интернет соединения",
+                Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -114,7 +120,8 @@ class CurrentChatFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        rvCorrespondenceAdapter = CorrespondenceAdapter((activity as MainActivity).sp.getInt(Key.USER_ID, 0))
+        rvCorrespondenceAdapter =
+            CorrespondenceAdapter((activity as MainActivity).sp.getInt(Key.USER_ID, 0))
         rv_current_chat.adapter = rvCorrespondenceAdapter
     }
 

@@ -16,20 +16,27 @@ import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
     private val userUseCase: UserUseCase,
-    private val chatUseCase: ChatUseCase
+    private val chatUseCase: ChatUseCase,
 ) : ViewModel() {
 
     private val currentUser: MutableLiveData<UserPresentation> = MutableLiveData()
     private val chatId: MutableLiveData<Int> = MutableLiveData()
+    private val errors: MutableLiveData<Exception> = MutableLiveData()
 
     fun findUser(userId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val resp = userUseCase.getById(userId)
-                if (resp.photoLink != null) {
-                    resp.bitmap = BitmapFactory.decodeStream(URL(resp.photoLink).openConnection().getInputStream())
+                try {
+                    val resp = userUseCase.getById(userId)
+                    if (resp.photoLink != null) {
+                        resp.bitmap =
+                            BitmapFactory.decodeStream(URL(resp.photoLink).openConnection()
+                                .getInputStream())
+                    }
+                    currentUser.postValue(resp)
+                } catch (e: Exception) {
+                    errors.postValue(e)
                 }
-                currentUser.postValue(resp)
             }
         }
     }
@@ -37,12 +44,17 @@ class ProfileViewModel @Inject constructor(
     fun createChat(myId: Int, anotherUserId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                chatId.postValue(chatUseCase.createChat(myId, anotherUserId))
+                try {
+                    chatId.postValue(chatUseCase.createChat(myId, anotherUserId))
+                } catch (e: Exception) {
+                    errors.postValue(e)
+                }
             }
         }
     }
 
     fun getCurrentUser(): MutableLiveData<UserPresentation> = currentUser
     fun getChatId(): MutableLiveData<Int> = chatId
+    fun getErrors(): MutableLiveData<Exception> = errors
 
 }

@@ -8,18 +8,24 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.itis.androidtechpracticeapp.data.api.responses.ActResponse
 import ru.itis.androidtechpracticeapp.domain.usecases.UserUseCase
+import java.lang.Exception
 import javax.inject.Inject
 
 class MyActsViewModel @Inject constructor(
-    private val userUseCase: UserUseCase
+    private val userUseCase: UserUseCase,
 ) : ViewModel() {
 
     private val list: MutableLiveData<List<ActResponse>> = MutableLiveData()
+    private val errors: MutableLiveData<Exception> = MutableLiveData()
 
     fun searchActs(userId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                list.postValue(userUseCase.getActsList(userId))
+                try {
+                    list.postValue(userUseCase.getActsList(userId))
+                } catch (e: Exception) {
+                    errors.postValue(e)
+                }
             }
         }
     }
@@ -27,7 +33,11 @@ class MyActsViewModel @Inject constructor(
     fun searchContinueActs(userId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                list.postValue(userUseCase.getContinueActsList(userId))
+                try {
+                    list.postValue(userUseCase.getContinueActsList(userId))
+                } catch (e: Exception) {
+                    errors.postValue(e)
+                }
             }
         }
     }
@@ -35,11 +45,16 @@ class MyActsViewModel @Inject constructor(
     fun searchEndActs(userId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                list.postValue(userUseCase.getEndActsList(userId))
+                try {
+                    list.postValue(userUseCase.getEndActsList(userId))
+                } catch (e: Exception) {
+                    errors.postValue(e)
+                }
             }
         }
     }
 
     fun getList(): MutableLiveData<List<ActResponse>> = list
+    fun getErrors(): MutableLiveData<Exception> = errors
 
 }

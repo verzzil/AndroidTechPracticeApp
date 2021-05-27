@@ -23,6 +23,8 @@ class TopUsersHolder(
     fun bind(user: UserPresentation) {
         if(user.bitmap != null) {
             userPhoto.setImageBitmap(user.bitmap)
+        } else {
+            userPhoto.setImageResource(R.drawable.mock_avatar)
         }
 
         userFullName.text = user.getFullName()

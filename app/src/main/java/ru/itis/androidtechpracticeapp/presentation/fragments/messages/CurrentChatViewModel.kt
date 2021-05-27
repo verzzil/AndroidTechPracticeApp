@@ -11,53 +11,61 @@ import okhttp3.*
 import org.json.JSONObject
 import ru.itis.androidtechpracticeapp.domain.usecases.ChatUseCase
 import ru.itis.androidtechpracticeapp.presentation.models.MessagePresentation
+import java.lang.Exception
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class CurrentChatViewModel @Inject constructor(
-    private val chatUseCase: ChatUseCase
+    private val chatUseCase: ChatUseCase,
 ) : ViewModel() {
 
     private val messagesLiveData: MutableLiveData<List<MessagePresentation>> = MutableLiveData()
+    private val errors: MutableLiveData<Exception> = MutableLiveData()
 
     private lateinit var messageWebSocket: WebSocket
     private lateinit var chatsWebSocket: WebSocket
     private lateinit var messages: List<MessagePresentation>
 
     fun startWSConnection(url1: String, url2: String) {
-        val client1 = OkHttpClient.Builder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .build()
-        val request1 = Request.Builder()
-            .url(url1)
-            .header("Connection","close")
-            .build()
+        try {
+            val client1 = OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .build()
+            val request1 = Request.Builder()
+                .url(url1)
+                .header("Connection", "close")
+                .build()
 
-        val listener1 = MyWebSocketListener()
-        messageWebSocket = client1.newWebSocket(request1, listener1)
+            val listener1 = MyWebSocketListener()
+            messageWebSocket = client1.newWebSocket(request1, listener1)
 
-        val client2 = OkHttpClient.Builder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .build()
-        val request2 = Request.Builder()
-            .url(url2)
-            .header("Connection","close")
-            .build()
+            val client2 = OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .build()
+            val request2 = Request.Builder()
+                .url(url2)
+                .header("Connection", "close")
+                .build()
 
-        val listener2 = MyWebSocketEchoListener()
-        chatsWebSocket = client2.newWebSocket(request2, listener2)
+            val listener2 = MyWebSocketEchoListener()
+            chatsWebSocket = client2.newWebSocket(request2, listener2)
+        } catch (e: Exception) {
+            errors.value = e
+        }
     }
 
     fun getCorrespondence(chatId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                messages = chatUseCase.getChatCorrespondence(chatId)
-                messagesLiveData.postValue(messages)
+                try {
+                    messages = chatUseCase.getChatCorrespondence(chatId)
+                    messagesLiveData.postValue(messages)
+                } catch (e: Exception) {
+                    errors.postValue(e)
+                }
             }
         }
     }
-
-    fun getMessages(): MutableLiveData<List<MessagePresentation>> = messagesLiveData
 
     fun sendMessage(
         chatId: Int,
@@ -65,28 +73,35 @@ class CurrentChatViewModel @Inject constructor(
         userName: String,
         text: String,
         chatType: String,
-        title: String
+        title: String,
     ) {
-        val messageDto = JSONObject()
-        messageDto.put("chatId", chatId)
-        messageDto.put("userId", userId)
-        messageDto.put("userName", userName)
-        messageDto.put("text", text)
+        try {
+            val messageDto = JSONObject()
+            messageDto.put("chatId", chatId)
+            messageDto.put("userId", userId)
+            messageDto.put("userName", userName)
+            messageDto.put("text", text)
 
-        val chatDto = JSONObject()
-        chatDto.put("id", chatId)
-        chatDto.put("title", title)
-        chatDto.put("lastMessage", messageDto)
-        chatDto.put("chatType", chatType)
+            val chatDto = JSONObject()
+            chatDto.put("id", chatId)
+            chatDto.put("title", title)
+            chatDto.put("lastMessage", messageDto)
+            chatDto.put("chatType", chatType)
 
-        chatsWebSocket.send(chatDto.toString())
-        messageWebSocket.send(messageDto.toString())
+            chatsWebSocket.send(chatDto.toString())
+            messageWebSocket.send(messageDto.toString())
+        } catch (e : Exception) {
+            errors.value = e
+        }
     }
 
     fun disconnect() {
         chatsWebSocket.cancel()
         messageWebSocket.cancel()
     }
+
+    fun getMessages(): MutableLiveData<List<MessagePresentation>> = messagesLiveData
+    fun getErrors(): MutableLiveData<Exception> = errors
 
     inner class MyWebSocketListener : WebSocketListener() {
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {

@@ -17,21 +17,29 @@ class TopUsersViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val topUsers: MutableLiveData<List<UserPresentation>> = MutableLiveData()
+    private val errors: MutableLiveData<Exception> = MutableLiveData()
 
     fun findTopUsers() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val resp = userUseCase.getTopUsers()
-                for (user: UserPresentation in resp) {
-                    if (user.photoLink != null) {
-                        user.bitmap = BitmapFactory.decodeStream(URL(user.photoLink).openConnection().getInputStream())
+                try {
+                    val resp = userUseCase.getTopUsers()
+                    for (user: UserPresentation in resp) {
+                        if (user.photoLink != null) {
+                            user.bitmap =
+                                BitmapFactory.decodeStream(URL(user.photoLink).openConnection()
+                                    .getInputStream())
+                        }
                     }
+                    topUsers.postValue(resp)
+                } catch (e: Exception) {
+                    errors.postValue(e)
                 }
-                topUsers.postValue(resp)
             }
         }
     }
 
     fun getTopUsers(): MutableLiveData<List<UserPresentation>> = topUsers
+    fun getErrors(): MutableLiveData<Exception> = errors
 
 }

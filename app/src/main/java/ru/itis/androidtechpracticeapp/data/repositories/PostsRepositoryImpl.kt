@@ -48,7 +48,8 @@ class PostsRepositoryImpl(
             id = dbResponse.id,
             title = dbResponse.title,
             desc = dbResponse.description,
-            author = usersRepository.findById(dbResponse.authorId)
+            author = usersRepository.findById(dbResponse.authorId),
+            link = dbResponse.link
         )
     }
 
@@ -62,7 +63,8 @@ class PostsRepositoryImpl(
                     id = post.id,
                     title = post.title,
                     desc = post.description,
-                    author = usersRepository.findById(post.authorId)
+                    author = usersRepository.findById(post.authorId),
+                    link = post.link
                 )
             )
         }

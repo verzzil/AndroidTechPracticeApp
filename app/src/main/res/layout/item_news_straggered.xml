@@ -14,14 +14,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".7" />
+            app:layout_constraintGuide_percent="0.60" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/news_background_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/background"
+            android:src="@drawable/mock_post"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_max="200dp"
@@ -29,6 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_news_straggered_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -36,6 +37,7 @@
             android:paddingTop="8dp"
             android:paddingEnd="4dp"
             android:paddingBottom="8dp"
+            android:textSize="8sp"
             android:text="author"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +62,7 @@
             android:paddingBottom="@dimen/large_vertical_margin"
             android:text="News Title"
             android:textColor="@color/white"
-            android:textSize="@dimen/large_text"
+            android:textSize="@dimen/small_text"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/news_transparent_background"
             app:layout_constraintEnd_toEndOf="parent"

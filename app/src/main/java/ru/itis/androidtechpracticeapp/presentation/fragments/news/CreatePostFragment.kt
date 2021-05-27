@@ -15,6 +15,7 @@ import ru.itis.androidtechpracticeapp.presentation.MainActivity
 import ru.itis.androidtechpracticeapp.presentation.adapters.PostsAdapter
 import ru.itis.androidtechpracticeapp.presentation.models.PostPresentation
 import ru.itis.androidtechpracticeapp.utils.Key
+import java.lang.Exception
 import javax.inject.Inject
 
 class CreatePostFragment : Fragment() {
@@ -44,22 +45,37 @@ class CreatePostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initObservers()
+        initListeners()
+
+    }
+
+    private fun initListeners() {
+        create_post_send.setOnClickListener {
+            if (create_post_title.text.isNotEmpty() && create_post_content.text.isNotEmpty() && create_post_link.text.isNotEmpty()) {
+                    viewModel.createPost(
+                        create_post_title.text.toString(),
+                        create_post_content.text.toString(),
+                        create_post_link.text.toString(),
+                        (activity as MainActivity).sp.getInt(Key.USER_ID, 0)
+                    )
+            } else {
+                Toast.makeText((activity as MainActivity),
+                    "Все поля должны быть заполнены",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun initObservers() {
         viewModel.getFlag().observe(viewLifecycleOwner, {
             (activity as MainActivity).onBackPressed()
         })
-
-        create_post_send.setOnClickListener {
-            if (create_post_title.text.isNotEmpty() && create_post_content.text.isNotEmpty() && create_post_link.text.isNotEmpty()) {
-                viewModel.createPost(
-                    create_post_title.text.toString(),
-                    create_post_content.text.toString(),
-                    create_post_link.text.toString(),
-                    (activity as MainActivity).sp.getInt(Key.USER_ID, 0)
-                )
-            } else {
-                Toast.makeText((activity as MainActivity), "Все поля должны быть заполнены", Toast.LENGTH_SHORT).show()
-            }
-        }
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity),
+                "Нет интернет соединения",
+                Toast.LENGTH_SHORT).show()
+        })
     }
 
 }

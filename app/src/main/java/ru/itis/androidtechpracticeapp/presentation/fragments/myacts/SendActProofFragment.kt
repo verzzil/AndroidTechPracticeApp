@@ -51,11 +51,22 @@ class SendActProofFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initObservers()
+        initListeners()
+
+    }
+
+    private fun initObservers() {
         sharedViewModel.getCoords().observe(viewLifecycleOwner, {
             currentCoords = it
             send_act_proof_coords_indicator.text = "Координаты установлены"
         })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity), "Нет интернет соединения", Toast.LENGTH_SHORT).show()
+        })
+    }
 
+    private fun initListeners() {
         send_act_proof_send.setOnClickListener {
             if (currentCoords != null && send_act_proof_link.text.isNotEmpty()) {
                 viewModel.sendProof(
@@ -76,7 +87,6 @@ class SendActProofFragment : Fragment() {
         send_act_proof_coords.setOnClickListener {
             navController.navigate(SendActProofFragmentDirections.actionSendActProofFragmentToMapFragment())
         }
-
     }
 
 }

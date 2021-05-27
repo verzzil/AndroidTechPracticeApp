@@ -12,7 +12,13 @@ interface UserDao {
     @Query("select * from user_db where id = :id limit 1")
     fun findById(id: Int): UserDb
 
+    @Query("select * from user_db")
+    fun findAll(): List<UserDb>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(user: UserDb)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(user: List<UserDb>)
 
 }

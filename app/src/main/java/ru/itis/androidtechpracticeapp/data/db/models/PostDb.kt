@@ -10,7 +10,8 @@ data class PostDb(
     val id: Int = 0,
     val title: String,
     val description: String,
-    val authorId: Int
+    val authorId: Int,
+    val link: String
 ) {
 
     companion object {
@@ -19,7 +20,8 @@ data class PostDb(
                 id = post.id,
                 title = post.title,
                 description = post.content,
-                authorId = post.authorId
+                authorId = post.authorId,
+                link = post.link
             )
 
         fun fromList(posts: List<PostResponse>): List<PostDb> =

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import kotlinx.android.synthetic.main.fragment_chats.*
 import ru.itis.androidtechpracticeapp.R
@@ -16,12 +17,12 @@ import ru.itis.androidtechpracticeapp.presentation.adapters.ChatsAdapter
 import ru.itis.androidtechpracticeapp.presentation.models.ChatPresentation
 import ru.itis.androidtechpracticeapp.utils.Consts
 import ru.itis.androidtechpracticeapp.utils.Key
+import java.lang.Exception
 import javax.inject.Inject
 
 class ChatsFragment : Fragment() {
 
     private lateinit var chatsAdapter: ChatsAdapter
-    private var chatList: List<ChatPresentation> = ArrayList()
 
     companion object {
         fun newInstance() = ChatsFragment()
@@ -42,7 +43,7 @@ class ChatsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_chats, container, false)
     }
@@ -59,7 +60,6 @@ class ChatsFragment : Fragment() {
         initListeners()
 
         initUi()
-
     }
 
     override fun onPause() {
@@ -71,11 +71,17 @@ class ChatsFragment : Fragment() {
         viewModel.getChatsLiveData().observe(viewLifecycleOwner, {
             chatsAdapter.submitList(it)
         })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity), "Нет интернет соединения", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun initListeners() {
         viewModel.findAllChats((activity as MainActivity).sp.getInt(Key.USER_ID, 0))
-        viewModel.startWSConnection("ws://${Consts.HOST_NAME}/wschat/${(activity as MainActivity).sp.getInt(Key.USER_ID, 0)}")
+        viewModel.startWSConnection("ws://${Consts.HOST_NAME}/wschat/${
+            (activity as MainActivity).sp.getInt(Key.USER_ID,
+                0)
+        }")
     }
 
     private fun initUi() {
@@ -92,7 +98,6 @@ class ChatsFragment : Fragment() {
         }
         chats_fragment_rv_chats.adapter = chatsAdapter
     }
-
 
 
 }

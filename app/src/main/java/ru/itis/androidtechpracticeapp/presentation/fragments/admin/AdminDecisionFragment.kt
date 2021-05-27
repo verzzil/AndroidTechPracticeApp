@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_admin_decision.*
@@ -51,6 +52,12 @@ class AdminDecisionFragment : Fragment() {
         admin_decision_link.text = args.link
         admin_decision_text.text = args.text
 
+        initObservers()
+        initListeners()
+
+    }
+
+    private fun initListeners() {
         admin_decision_approve.setOnClickListener {
             viewModel.setDecision(
                 args.actType,
@@ -61,7 +68,6 @@ class AdminDecisionFragment : Fragment() {
             )
             (activity as MainActivity).onBackPressed()
         }
-
         admin_decision_decline.setOnClickListener {
             viewModel.setDecision(
                 args.actType,
@@ -72,7 +78,14 @@ class AdminDecisionFragment : Fragment() {
             )
             (activity as MainActivity).onBackPressed()
         }
+    }
 
+    private fun initObservers() {
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity),
+                "Нет интернет соединения",
+                Toast.LENGTH_SHORT).show()
+        })
     }
 
 }

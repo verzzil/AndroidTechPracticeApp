@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_auth.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.AuthActivity
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
+import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -43,18 +43,24 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initObservers()
+        initListeners()
+
+    }
+
+    private fun initObservers() {
         viewModel.getUserResp().observe(viewLifecycleOwner, {
             Toast.makeText(activity as AuthActivity, "Успешная регистрация", Toast.LENGTH_SHORT)
                 .show()
             val tabhost = (activity as AuthActivity).findViewById<TabLayout>(R.id.auth_tab_layout)
             tabhost.getTabAt(0)?.select()
         })
-
-        initUi()
-
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as AuthActivity), "Нет интернет соединения", Toast.LENGTH_SHORT).show()
+        })
     }
 
-    private fun initUi() {
+    private fun initListeners() {
         val firstName = sign_up_et_first_name
         val lastName = sign_up_et_last_name
         val password = sign_up_et_password
@@ -62,7 +68,7 @@ class SignUpFragment : Fragment() {
 
         btn_sign_up.setOnClickListener {
             if (firstName.text.isEmpty() || lastName.text.isEmpty() || password.text.isEmpty() || email.text.isEmpty()) {
-                Toast.makeText(activity as MainActivity,
+                Toast.makeText(activity as AuthActivity,
                     "Все поля должны быть заполнены",
                     Toast.LENGTH_SHORT).show()
             } else {

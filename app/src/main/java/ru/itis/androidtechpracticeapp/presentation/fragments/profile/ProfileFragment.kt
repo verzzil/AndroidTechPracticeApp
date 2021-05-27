@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -17,6 +18,7 @@ import ru.itis.androidtechpracticeapp.presentation.adapters.SocialLinkAdapter
 import ru.itis.androidtechpracticeapp.presentation.adapters.TopUsersAdapter
 import ru.itis.androidtechpracticeapp.presentation.fragments.topusers.TopUsersViewModel
 import ru.itis.androidtechpracticeapp.utils.Key
+import java.lang.Exception
 import javax.inject.Inject
 
 class ProfileFragment : Fragment() {
@@ -41,7 +43,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
@@ -49,6 +51,20 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initObservers()
+        initListeners()
+
+        initUi()
+    }
+
+    private fun initListeners() {
+        viewModel.findUser(args.userId)
+        profile_send_message.setOnClickListener {
+            viewModel.createChat((activity as MainActivity).sp.getInt(Key.USER_ID, 0), args.userId)
+        }
+    }
+
+    private fun initObservers() {
         viewModel.getCurrentUser().observe(viewLifecycleOwner, {
             if (it.bitmap != null)
                 profile_user_image.setImageBitmap(it.bitmap)
@@ -56,14 +72,16 @@ class ProfileFragment : Fragment() {
             adapterSocialLink.submitList(it.socialLinks)
         })
         viewModel.getChatId().observe(viewLifecycleOwner, {
-            navController.navigate(ProfileFragmentDirections.actionProfileFragmentToCurrentChatFragment(it, chatType = "TWO"))
+            navController.navigate(ProfileFragmentDirections.actionProfileFragmentToCurrentChatFragment(
+                it,
+                chatType = "TWO"))
         })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity), "Нет интернет соединения", Toast.LENGTH_SHORT).show()
+        })
+    }
 
-        viewModel.findUser(args.userId)
-        profile_send_message.setOnClickListener {
-            viewModel.createChat((activity as MainActivity).sp.getInt(Key.USER_ID, 0), args.userId)
-        }
-
+    private fun initUi() {
         if (args.userId == (activity as MainActivity).sp.getInt(Key.USER_ID, 0)) {
             profile_send_message.visibility = View.GONE
         }

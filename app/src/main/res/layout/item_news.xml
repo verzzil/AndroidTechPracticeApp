@@ -18,7 +18,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/background" />
+            app:srcCompat="@drawable/mock_post" />
 
         <TextView
             android:id="@+id/news_date"
@@ -41,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/large_horizontal_margin"
             android:layout_marginTop="@dimen/large_vertical_margin"
-            android:text="Any title"
             android:textColor="@color/black"
             android:textSize="@dimen/large_text"
             app:layout_constraintTop_toBottomOf="@id/news_image" />
@@ -61,7 +60,6 @@
             android:layout_marginStart="@dimen/large_horizontal_margin"
             android:layout_marginTop="@dimen/middle_vertical_margin"
             android:layout_marginEnd="@dimen/large_horizontal_margin"
-            android:text="@string/lorem"
             app:layout_constraintTop_toBottomOf="@id/news_divider" />
 
         <TextView
@@ -70,7 +68,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/middle_horizontal_margin"
             android:paddingBottom="@dimen/large_vertical_margin"
-            android:text="author"
             android:textColor="@color/link"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

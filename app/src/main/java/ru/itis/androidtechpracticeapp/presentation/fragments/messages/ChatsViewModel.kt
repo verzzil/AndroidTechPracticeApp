@@ -14,6 +14,7 @@ import retrofit2.http.Url
 import ru.itis.androidtechpracticeapp.domain.usecases.ChatUseCase
 import ru.itis.androidtechpracticeapp.presentation.models.ChatPresentation
 import ru.itis.androidtechpracticeapp.presentation.models.MessagePresentation
+import java.lang.Exception
 import java.net.URL
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -24,41 +25,50 @@ class ChatsViewModel @Inject constructor(
     private val chatsLiveData: MutableLiveData<List<ChatPresentation>> = MutableLiveData()
     private var chats: List<ChatPresentation> = ArrayList()
     private lateinit var webSocket: WebSocket
+    private val errors: MutableLiveData<Exception> = MutableLiveData()
 
     fun findAllChats(userId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val result = chatUseCase.getAllUserChats(userId)
-                for (cp: ChatPresentation in result) {
-                    if (cp.chatType != "GROUP") {
-                        val response = chatUseCase.getDialogInfo(cp.id, userId)
-                        cp.title = response.dialogTitle
-                        if (response.link != null && response.link.isNotEmpty()) {
-                            cp.link = BitmapFactory.decodeStream(URL(response.link).openConnection()
-                                .getInputStream())
+                try {
+                    val result = chatUseCase.getAllUserChats(userId)
+                    for (cp: ChatPresentation in result) {
+                        if (cp.chatType != "GROUP") {
+                            val response = chatUseCase.getDialogInfo(cp.id, userId)
+                            cp.title = response.dialogTitle
+                            if (response.link != null && response.link.isNotEmpty()) {
+                                cp.link =
+                                    BitmapFactory.decodeStream(URL(response.link).openConnection()
+                                        .getInputStream())
+                            }
                         }
                     }
+                    chats = ChatPresentation.cloneData(result)
+                    chatsLiveData.postValue(
+                        result
+                    )
+                } catch (e: Exception) {
+                    errors.postValue(e)
                 }
-                chats = ChatPresentation.cloneData(result)
-                chatsLiveData.postValue(
-                    result
-                )
             }
         }
     }
 
     fun startWSConnection(url: String) {
+        try {
+            val client = OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .build()
+            val request = Request.Builder()
+                .header("Connection", "close")
+                .url(url)
+                .build()
 
-        val client = OkHttpClient.Builder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .build()
-        val request = Request.Builder()
-            .header("Connection", "close")
-            .url(url)
-            .build()
-
-        val listener = MyWebSocketListener()
-        webSocket = client.newWebSocket(request, listener)
+            val listener = MyWebSocketListener()
+            webSocket = client.newWebSocket(request, listener)
+        } catch (e : Exception) {
+            errors.postValue(e)
+        }
     }
 
     inner class MyWebSocketListener : WebSocketListener() {
@@ -130,6 +140,7 @@ class ChatsViewModel @Inject constructor(
         webSocket.cancel()
     }
 
-    fun getChatsLiveData() = chatsLiveData
+    fun getChatsLiveData(): MutableLiveData<List<ChatPresentation>> = chatsLiveData
+    fun getErrors(): MutableLiveData<Exception> = errors
 
 }

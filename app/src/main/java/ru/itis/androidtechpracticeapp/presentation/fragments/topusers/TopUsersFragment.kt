@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -13,6 +14,7 @@ import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
 import ru.itis.androidtechpracticeapp.presentation.adapters.TopUsersAdapter
 import ru.itis.androidtechpracticeapp.presentation.fragments.news.NewsViewModel
+import java.lang.Exception
 import javax.inject.Inject
 
 class TopUsersFragment : Fragment() {
@@ -47,12 +49,28 @@ class TopUsersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initObservers()
+        initListeners()
+
+        initUi()
+    }
+
+    private fun initObservers() {
         viewModel.getTopUsers().observe(viewLifecycleOwner, {
             adapterTopUsers.submitList(it)
         })
+        viewModel.getErrors().observe(viewLifecycleOwner, {
+            Toast.makeText((activity as MainActivity),
+                "Нет интернет соединения",
+                Toast.LENGTH_SHORT).show()
+        })
+    }
 
+    private fun initListeners() {
         viewModel.findTopUsers()
+    }
 
+    private fun initUi() {
         adapterTopUsers = TopUsersAdapter {
             navController.navigate(TopUsersFragmentDirections.actionTopFragmentToProfileFragment(it.id))
         }

@@ -5,6 +5,7 @@ data class PostData(
     val title: String,
     val desc: String,
     val author: UserData,
+    val link: String
 ) {
 
     companion object {
