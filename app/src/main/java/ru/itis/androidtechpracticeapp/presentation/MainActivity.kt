@@ -2,10 +2,13 @@ package ru.itis.androidtechpracticeapp.presentation
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.imageview.ShapeableImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.di.Injector
@@ -22,6 +26,7 @@ import ru.itis.androidtechpracticeapp.presentation.fragments.news.NewsFragmentDi
 import ru.itis.androidtechpracticeapp.utils.Consts
 import ru.itis.androidtechpracticeapp.utils.Key
 import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity(), ToggleBars {
 
@@ -36,17 +41,39 @@ class MainActivity : AppCompatActivity(), ToggleBars {
     lateinit var viewModelComponent: ViewModelComponent
 
     lateinit var sharedViewModel: SharedViewModel
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModelComponent = Injector.viewModelComponent()
         super.onCreate(savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.navigationBarColor = Color.TRANSPARENT
+        }
         setContentView(R.layout.activity_main)
 
         viewModelComponent.inject(this)
         sharedViewModel =
             ViewModelProvider(this, viewModelFactory).get(SharedViewModel::class.java)
-
+        viewModel =
+            ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         sp = getSharedPreferences(Consts.SP_NAME, MODE_PRIVATE)
+
+        viewModel.getCurrentUser().observe(this, {
+            val navNewHeader = nav_view.getHeaderView(0)
+            navNewHeader.findViewById<TextView>(R.id.nav_header_username).text = it.getFullName()
+            navNewHeader.findViewById<TextView>(R.id.nav_header_email).text = it.email
+            navNewHeader.findViewById<TextView>(R.id.nav_header_cash).text = "Cash: ${it.cash}"
+            if (it.bitmap != null)
+                navNewHeader.findViewById<ShapeableImageView>(R.id.nav_header_avatar)
+                    .setImageBitmap(it.bitmap)
+            else
+                navNewHeader.findViewById<ShapeableImageView>(R.id.nav_header_avatar)
+                    .setImageResource(R.drawable.mock_avatar)
+        })
+
+        viewModel.findUser(sp.getInt(Key.USER_ID, 0))
 
         initUi()
 

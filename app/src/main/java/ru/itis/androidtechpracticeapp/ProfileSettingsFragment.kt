@@ -61,8 +61,7 @@ class ProfileSettingsFragment : Fragment() {
         })
         viewModel.getChangeReady().observe(viewLifecycleOwner, {
             if (it == true) {
-                navController.navigate(ProfileSettingsFragmentDirections.actionProfileSettingsFragmentToProfileFragment(
-                    (activity as MainActivity).sp.getInt(Key.USER_ID, 0)))
+                Toast.makeText((activity as MainActivity), "Настройки изменены!", Toast.LENGTH_SHORT).show()
             }
         })
 

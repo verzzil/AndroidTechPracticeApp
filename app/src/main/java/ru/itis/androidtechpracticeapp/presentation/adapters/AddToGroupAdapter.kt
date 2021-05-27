@@ -10,6 +10,7 @@ import ru.itis.androidtechpracticeapp.presentation.holders.AddToGroupHolder
 import ru.itis.androidtechpracticeapp.presentation.models.UserPresentation
 
 class AddToGroupAdapter(
+    private val userId: Int,
     private val click: (UserPresentation) -> Unit,
 ) : ListAdapter<UserPresentation, AddToGroupHolder>(
     object : DiffUtil.ItemCallback<UserPresentation>() {
@@ -29,6 +30,7 @@ class AddToGroupAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddToGroupHolder =
         AddToGroupHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_add_to_group, parent, false),
+            userId,
             click
         )
 

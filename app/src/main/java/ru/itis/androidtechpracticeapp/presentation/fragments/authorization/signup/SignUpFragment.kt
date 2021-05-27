@@ -1,19 +1,22 @@
 package ru.itis.androidtechpracticeapp.presentation.fragments.authorization.signup
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_auth.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.AuthActivity
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
 import javax.inject.Inject
+
 
 class SignUpFragment : Fragment() {
 
@@ -41,7 +44,10 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getUserResp().observe(viewLifecycleOwner, {
-            Toast.makeText(activity as AuthActivity, "Успешная регистрация", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity as AuthActivity, "Успешная регистрация", Toast.LENGTH_SHORT)
+                .show()
+            val tabhost = (activity as AuthActivity).findViewById<TabLayout>(R.id.auth_tab_layout)
+            tabhost.getTabAt(0)?.select()
         })
 
         initUi()

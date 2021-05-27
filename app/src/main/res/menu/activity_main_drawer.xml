@@ -6,35 +6,35 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/profile_fragment"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_outline_person_24"
             android:title="@string/my_profile" />
         <item
             android:id="@+id/chats_fragment"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_outline_email_24"
             android:title="@string/my_messages" />
         <item
             android:id="@+id/profile_settings_fragment"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_outline_settings_24"
             android:title="@string/profile_settings" />
         <item
             android:id="@+id/my_tasks_fragment"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_outline_format_list_bulleted_24"
             android:title="@string/my_tasks" />
         <item
             android:id="@+id/create_task_fragment"
-            android:icon="@drawable/ic_android_black_24dp"
+            android:icon="@drawable/ic_outline_note_add_24"
             android:title="@string/create_new_task" />
         <item
             android:id="@+id/create_post_fragment"
-            android:icon="@drawable/ic_android_black_24dp"
+            android:icon="@drawable/ic_baseline_post_add_24"
             android:title="@string/create_post_task" />
         <item
             android:id="@+id/my_map_fragment"
-            android:icon="@drawable/ic_android_black_24dp"
+            android:icon="@drawable/ic_outline_map_24"
             android:title="@string/my_map" />
         <item
             android:id="@+id/logout_fragment"
-            android:icon="@drawable/ic_android_black_24dp"
+            android:icon="@drawable/ic_outline_exit_to_app_24"
             android:title="@string/logout" />
     </group>
 </menu>

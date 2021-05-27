@@ -93,25 +93,32 @@ class CreateActFragment : Fragment() {
 
     private fun initListeners() {
         create_act_floating_btn.setOnClickListener {
-            (chooseUsersIds as ArrayList).add((activity as MainActivity).sp.getInt(Key.USER_ID, 0))
-            if (action == "USER") {
-                viewModel.createUserAct(
-                    (activity as MainActivity).sp.getInt(Key.USER_ID, 0),
-                    create_act_title.text.toString()
-                )
-                (activity as MainActivity).onBackPressed()
+            if (create_act_title.text.isEmpty()) {
+                Toast.makeText((activity as MainActivity),
+                    "Введите название задания",
+                    Toast.LENGTH_SHORT).show()
             } else {
-                if (chooseUsersIds.size > 2) {
-                    viewModel.createGroupAct(
-                        chooseUsersIds,
+                (chooseUsersIds as ArrayList).add((activity as MainActivity).sp.getInt(Key.USER_ID,
+                    0))
+                if (action == "USER") {
+                    viewModel.createUserAct(
                         (activity as MainActivity).sp.getInt(Key.USER_ID, 0),
                         create_act_title.text.toString()
                     )
                     (activity as MainActivity).onBackPressed()
                 } else {
-                    Toast.makeText((activity as MainActivity),
-                        "Выберете своих единомышленников (больше одного)",
-                        Toast.LENGTH_SHORT).show()
+                    if (chooseUsersIds.size > 2) {
+                        viewModel.createGroupAct(
+                            chooseUsersIds,
+                            (activity as MainActivity).sp.getInt(Key.USER_ID, 0),
+                            create_act_title.text.toString()
+                        )
+                        (activity as MainActivity).onBackPressed()
+                    } else {
+                        Toast.makeText((activity as MainActivity),
+                            "Выберете своих единомышленников (больше одного)",
+                            Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -159,7 +166,8 @@ class CreateActFragment : Fragment() {
             }
         }
 
-        rvAddToGroupAdapter = AddToGroupAdapter {
+        rvAddToGroupAdapter = AddToGroupAdapter((activity as MainActivity).sp.getInt(Key.USER_ID,
+            0)) {
             viewModel.setSelectedUsers(it)
         }
         rvAdded = AddedToGroupAdapter {

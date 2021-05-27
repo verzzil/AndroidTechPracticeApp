@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.itis.androidtechpracticeapp.ProfileSettingsViewModel
 import ru.itis.androidtechpracticeapp.di.ViewModelKey
+import ru.itis.androidtechpracticeapp.presentation.MainViewModel
 import ru.itis.androidtechpracticeapp.presentation.SharedViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.admin.AdminDecisionViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.admin.AdminViewModel
@@ -110,5 +111,10 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CreatePostViewModel::class)
     fun bindCreatePostViewModel(viewModel: CreatePostViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    fun bindMainViewModel(viewModel: MainViewModel): ViewModel
 
 }

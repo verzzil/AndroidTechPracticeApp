@@ -10,10 +10,12 @@
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/forava"
+        android:src="@drawable/chat_group_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="0.4dp"
+        app:strokeColor="#BDBDBD"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
     <androidx.appcompat.widget.AppCompatTextView

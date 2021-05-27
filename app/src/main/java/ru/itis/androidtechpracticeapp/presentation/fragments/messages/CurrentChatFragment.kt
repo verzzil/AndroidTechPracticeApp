@@ -4,11 +4,14 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_current_chat.*
 import ru.itis.androidtechpracticeapp.R
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
@@ -33,12 +36,14 @@ class CurrentChatFragment : Fragment() {
     private lateinit var viewModel: CurrentChatViewModel
 
     private lateinit var rvCorrespondenceAdapter: CorrespondenceAdapter
+    private lateinit var navController: NavController
 
     private lateinit var closeNavBar: ToggleBars
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as MainActivity).viewModelComponent.inject(this)
+        navController = (activity as MainActivity).navController
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(CurrentChatViewModel::class.java)
 
@@ -70,8 +75,9 @@ class CurrentChatFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.getMessages().observe(viewLifecycleOwner, {
-            rvCorrespondenceAdapter.submitList(it)
-            rv_current_chat.scrollToPosition(rvCorrespondenceAdapter.itemCount - 1)
+            rvCorrespondenceAdapter.submitList(it) {
+                rv_current_chat.scrollToPosition(rvCorrespondenceAdapter.itemCount - 1)
+            }
         })
     }
 
@@ -88,15 +94,17 @@ class CurrentChatFragment : Fragment() {
         )
 
         current_chat_btn_msg.setOnClickListener {
-            viewModel.sendMessage(
-                args.chatId,
-                (activity as MainActivity).sp.getInt(Key.USER_ID, 0),
-                (activity as MainActivity).sp.getString(Key.USER_NAME, "").orEmpty(),
-                current_chat_et_msg.text.toString(),
-                args.chatType,
-                args.chatTitle
-            )
-            current_chat_et_msg.setText("")
+            if (current_chat_et_msg.text.isNotEmpty()) {
+                viewModel.sendMessage(
+                    args.chatId,
+                    (activity as MainActivity).sp.getInt(Key.USER_ID, 0),
+                    (activity as MainActivity).sp.getString(Key.USER_NAME, "").orEmpty(),
+                    current_chat_et_msg.text.toString(),
+                    args.chatType,
+                    args.chatTitle
+                )
+                current_chat_et_msg.setText("")
+            }
         }
 
     }

@@ -125,7 +125,7 @@ class MyActsFragment : Fragment() {
     }
 
     private fun showToast(text: String) {
-        Toast.makeText((activity as MainActivity), text, Toast.LENGTH_LONG).show()
+        Toast.makeText((activity as MainActivity), text, Toast.LENGTH_SHORT).show()
     }
 
 }

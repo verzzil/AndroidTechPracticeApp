@@ -4,15 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="60dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/item_add_user_photo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/map_sv"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/item_add_user_name"
         android:layout_width="0dp"
@@ -23,8 +14,7 @@
         android:textSize="@dimen/small_text"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/item_add_user_photo"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 

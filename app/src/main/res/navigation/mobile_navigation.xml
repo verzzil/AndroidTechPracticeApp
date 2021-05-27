@@ -107,11 +107,7 @@
         android:id="@+id/profile_settings_fragment"
         android:name="ru.itis.androidtechpracticeapp.ProfileSettingsFragment"
         android:label="Настройки профиля"
-        tools:layout="@layout/fragment_profile_settings">
-        <action
-            android:id="@+id/action_profile_settings_fragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_profile_settings"/>
     <fragment
         android:id="@+id/adminFragment"
         android:name="ru.itis.androidtechpracticeapp.presentation.fragments.admin.AdminFragment"

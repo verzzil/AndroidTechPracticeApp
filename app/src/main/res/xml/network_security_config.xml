@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">ws://389b3858e7ef.ngrok.io/wschat/1</domain>
+        <domain includeSubdomains="true">ws://454ee7e82b1f.ngrok.io/wschat/1</domain>
     </domain-config>
 </network-security-config>
