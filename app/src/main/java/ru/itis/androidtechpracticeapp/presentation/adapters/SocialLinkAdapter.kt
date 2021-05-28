@@ -9,7 +9,7 @@ import ru.itis.androidtechpracticeapp.data.api.responses.SocialLinksResponse
 import ru.itis.androidtechpracticeapp.presentation.holders.SocialLinkHolder
 
 class SocialLinkAdapter(
-
+    private val click: (SocialLinksResponse) -> Unit
 ) : ListAdapter<SocialLinksResponse, SocialLinkHolder>(
     object : DiffUtil.ItemCallback<SocialLinksResponse>() {
         override fun areItemsTheSame(oldItem: SocialLinksResponse, newItem: SocialLinksResponse): Boolean =
@@ -22,6 +22,7 @@ class SocialLinkAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SocialLinkHolder =
         SocialLinkHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_social_link, parent, false),
+            click
         )
 
     override fun onBindViewHolder(holder: SocialLinkHolder, position: Int) =

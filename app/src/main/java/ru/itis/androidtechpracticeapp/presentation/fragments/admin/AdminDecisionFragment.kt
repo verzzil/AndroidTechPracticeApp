@@ -3,6 +3,7 @@ package ru.itis.androidtechpracticeapp.presentation.fragments.admin
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +50,7 @@ class AdminDecisionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        admin_decision_link.text = args.link
+        viewModel.parseImage(args.link)
         admin_decision_text.text = args.text
 
         initObservers()
@@ -81,6 +82,13 @@ class AdminDecisionFragment : Fragment() {
     }
 
     private fun initObservers() {
+        viewModel.getImg().observe(viewLifecycleOwner, {
+            Log.i("asdasdas","asdasd")
+            admin_decision_link.setImageBitmap(it)
+        })
+        viewModel.getImgRes().observe(viewLifecycleOwner, {
+            admin_decision_link.setImageResource(R.drawable.proof_mock)
+        })
         viewModel.getErrors().observe(viewLifecycleOwner, {
             Toast.makeText((activity as MainActivity),
                 "Нет интернет соединения",

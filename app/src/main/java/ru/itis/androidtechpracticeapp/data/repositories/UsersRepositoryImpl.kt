@@ -121,6 +121,10 @@ class UsersRepositoryImpl(
         myApi.saveFirebaseToken(userId, token)
     }
 
+    override suspend fun logout(userId: Int, token: String) {
+        myApi.logout(userId, token)
+    }
+
     override suspend fun sendUserDecision(decision: ProofDecisionDto) {
         myApi.sendUserDecision(decision)
     }

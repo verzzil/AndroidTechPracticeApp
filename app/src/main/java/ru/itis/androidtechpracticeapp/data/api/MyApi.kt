@@ -103,4 +103,7 @@ interface MyApi {
     @POST("/user/{userId}/{token}")
     suspend fun saveFirebaseToken(@Path("userId") userId: Int, @Path("token") token: String)
 
+    @POST("/user/logout/{userId}/{token}")
+    suspend fun logout(@Path("userId") userId: Int, @Path("token") token: String)
+
 }

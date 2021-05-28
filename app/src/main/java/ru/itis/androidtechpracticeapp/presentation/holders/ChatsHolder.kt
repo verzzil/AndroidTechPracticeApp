@@ -20,13 +20,20 @@ class ChatsHolder(
         itemView.findViewById(R.id.messages_fragment_item_user_message)
 
     fun bind(chat: ChatPresentation) {
-        // todo фотка!!!
         chatTitle.text = chat.title
         if (chat.link != null) {
             userPhoto.setImageBitmap(chat.link)
         }
-        if (chat.chatType == "GROUP")
-            lastMessage.text = "${chat.lastMessage.userName}: ${chat.lastMessage.text}"
+        if (chat.chatType == "GROUP") {
+            if (chat.lastMessage.text != null) {
+                if (chat.lastMessage.text!!.length > 30) {
+                    lastMessage.text =
+                        "${chat.lastMessage.userName}: ${chat.lastMessage.text!!.substring(0, 30)}..."
+                }
+                else
+                    lastMessage.text = "${chat.lastMessage.userName}: ${chat.lastMessage.text}"
+            }
+        }
         else
             lastMessage.text = chat.lastMessage.text
 

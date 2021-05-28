@@ -45,7 +45,23 @@ class MainViewModel @Inject constructor(
     fun saveFirebaseToken(userId: Int, token: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                userUseCase.saveFirebaseToken(userId, token)
+                try {
+                    userUseCase.saveFirebaseToken(userId, token)
+                } catch (e: Exception) {
+                    errors.postValue(e)
+                }
+            }
+        }
+    }
+
+    fun logout(userId: Int, token: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    userUseCase.logout(userId, token)
+                } catch (e: Exception) {
+                    errors.postValue(e)
+                }
             }
         }
     }

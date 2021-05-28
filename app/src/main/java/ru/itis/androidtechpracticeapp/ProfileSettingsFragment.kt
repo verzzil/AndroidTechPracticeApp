@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_profile_settings.*
 import ru.itis.androidtechpracticeapp.data.api.dto.ProfileSettingsDto
 import ru.itis.androidtechpracticeapp.data.api.dto.SocialLinkDto
 import ru.itis.androidtechpracticeapp.presentation.MainActivity
+import ru.itis.androidtechpracticeapp.presentation.SharedViewModel
 import ru.itis.androidtechpracticeapp.presentation.fragments.messages.ChatsViewModel
 import ru.itis.androidtechpracticeapp.utils.Key
 import javax.inject.Inject
@@ -27,7 +28,7 @@ class ProfileSettingsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var viewModel: ProfileSettingsViewModel
     private lateinit var navController: NavController
     private lateinit var selectedItem: String
@@ -35,6 +36,7 @@ class ProfileSettingsFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as MainActivity).viewModelComponent.inject(this)
+        sharedViewModel = (activity as MainActivity).sharedViewModel
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(ProfileSettingsViewModel::class.java)
     }
@@ -60,9 +62,9 @@ class ProfileSettingsFragment : Fragment() {
             Toast.makeText((activity as MainActivity), it, Toast.LENGTH_LONG).show()
         })
         viewModel.getChangeReady().observe(viewLifecycleOwner, {
-            if (it == true) {
-                Toast.makeText((activity as MainActivity), "Настройки изменены!", Toast.LENGTH_SHORT).show()
-            }
+            Toast.makeText((activity as MainActivity), "Настройки изменены!", Toast.LENGTH_SHORT)
+                .show()
+            sharedViewModel.setUser(it)
         })
 
         profile_settings_btn.setOnClickListener {
@@ -102,20 +104,21 @@ class ProfileSettingsFragment : Fragment() {
         )
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         profile_settings_anchor_social_links_spinner.adapter = spinnerAdapter
-        profile_settings_anchor_social_links_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                selectedItem = parent?.getAdapter()?.getItem(position).toString()
-            }
+        profile_settings_anchor_social_links_spinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedItem = parent?.getAdapter()?.getItem(position).toString()
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
 
+                }
             }
-        }
     }
 
 

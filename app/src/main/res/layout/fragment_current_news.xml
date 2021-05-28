@@ -13,8 +13,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/current_news_title"
@@ -22,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/large_horizontal_margin"
         android:layout_marginTop="@dimen/large_vertical_margin"
-        android:text="Any text"
         android:textColor="@color/black"
         android:textSize="@dimen/large_text"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +43,6 @@
         android:layout_marginStart="@dimen/large_horizontal_margin"
         android:layout_marginTop="@dimen/middle_vertical_margin"
         android:layout_marginEnd="@dimen/large_horizontal_margin"
-        android:text="@string/lorem"
         app:layout_constraintTop_toBottomOf="@id/current_news_divider" />
 
     <TextView
@@ -54,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/middle_vertical_margin"
         android:layout_marginEnd="@dimen/middle_horizontal_margin"
-        android:text="author"
         android:textColor="@color/link"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

@@ -42,4 +42,6 @@ interface UsersRepository {
 
     suspend fun saveFirebaseToken(userId: Int, token: String)
 
+    suspend fun logout(userId: Int, token: String)
+
 }

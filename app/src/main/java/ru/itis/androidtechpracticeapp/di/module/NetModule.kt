@@ -25,20 +25,6 @@ class NetModule {
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()
 
-//    @Provides
-//    @Singleton
-//    fun provideWebSocketClient(): OkHttpClient =
-//        OkHttpClient.Builder()
-//            .connectTimeout(30, TimeUnit.SECONDS)
-//            .build()
-
-//    @Provides
-//    @Singleton
-//    fun provideChatRequest(): Request =
-//        Request.Builder()
-//            .url("")
-//            .build()
-
     @Provides
     @Singleton
     fun provideRetrofit(

@@ -1,6 +1,8 @@
 package ru.itis.androidtechpracticeapp.presentation.fragments.profile
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,6 +30,7 @@ class ProfileFragment : Fragment() {
     private lateinit var adapterSocialLink: SocialLinkAdapter
     private lateinit var navController: NavController
     private lateinit var viewModel: ProfileViewModel
+    private var currentId = -1
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -51,6 +54,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (args.userId == -1) currentId = (activity as MainActivity).sp.getInt(Key.USER_ID, 0)
+        else currentId = args.userId
+
         initObservers()
         initListeners()
 
@@ -58,9 +64,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initListeners() {
-        viewModel.findUser(args.userId)
+        viewModel.findUser(currentId)
         profile_send_message.setOnClickListener {
-            viewModel.createChat((activity as MainActivity).sp.getInt(Key.USER_ID, 0), args.userId)
+            viewModel.createChat((activity as MainActivity).sp.getInt(Key.USER_ID, 0), currentId)
         }
     }
 
@@ -82,11 +88,15 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initUi() {
-        if (args.userId == (activity as MainActivity).sp.getInt(Key.USER_ID, 0)) {
+        if (currentId == (activity as MainActivity).sp.getInt(Key.USER_ID, 0)) {
             profile_send_message.visibility = View.GONE
         }
 
-        adapterSocialLink = SocialLinkAdapter()
+        adapterSocialLink = SocialLinkAdapter {
+            startActivity(
+                Intent(Intent.ACTION_VIEW, Uri.parse(it.socialLink))
+            )
+        }
         profile_rv_links.adapter = adapterSocialLink
     }
 

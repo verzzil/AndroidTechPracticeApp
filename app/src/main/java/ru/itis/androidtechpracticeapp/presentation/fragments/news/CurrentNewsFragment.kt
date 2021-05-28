@@ -57,6 +57,11 @@ class CurrentNewsFragment : Fragment() {
             current_news_title.text = it.title
             current_news_content.text = it.desc
             current_news_author.text = it.author.getFullName()
+            if (it.bitmap != null) {
+                current_news_image.setImageBitmap(it.bitmap)
+            } else {
+                current_news_image.setImageResource(R.drawable.mock_post)
+            }
         })
         viewModel.getErrors().observe(viewLifecycleOwner, {
             Toast.makeText((activity as MainActivity),

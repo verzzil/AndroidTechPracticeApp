@@ -70,12 +70,7 @@ class MainActivity : AppCompatActivity(), ToggleBars {
     }
 
     private fun initListeners() {
-        try {
-            viewModel.findUser(sp.getInt(Key.USER_ID, 0))
-        } catch (e: Exception) {
-            Toast.makeText(this, "Нет интернет соединения", Toast.LENGTH_SHORT).show()
-        }
-
+        viewModel.findUser(sp.getInt(Key.USER_ID, 0))
     }
 
     private fun initObservers() {
@@ -83,7 +78,6 @@ class MainActivity : AppCompatActivity(), ToggleBars {
             val navNewHeader = nav_view.getHeaderView(0)
             navNewHeader.findViewById<TextView>(R.id.nav_header_username).text = it.getFullName()
             navNewHeader.findViewById<TextView>(R.id.nav_header_email).text = it.email
-            navNewHeader.findViewById<TextView>(R.id.nav_header_cash).text = "Cash: ${it.cash}"
             if (it.bitmap != null)
                 navNewHeader.findViewById<ShapeableImageView>(R.id.nav_header_avatar)
                     .setImageBitmap(it.bitmap)
@@ -93,6 +87,15 @@ class MainActivity : AppCompatActivity(), ToggleBars {
         })
         viewModel.getErrors().observe(this, {
             Toast.makeText(this, "Нет интернет соединения", Toast.LENGTH_SHORT).show()
+        })
+        sharedViewModel.getUser().observe(this, {
+            val navNewHeader = nav_view.getHeaderView(0)
+            if (it.bitmap != null)
+                navNewHeader.findViewById<ShapeableImageView>(R.id.nav_header_avatar)
+                    .setImageBitmap(it.bitmap)
+            else
+                navNewHeader.findViewById<ShapeableImageView>(R.id.nav_header_avatar)
+                    .setImageResource(R.drawable.mock_avatar)
         })
     }
 
@@ -143,12 +146,8 @@ class MainActivity : AppCompatActivity(), ToggleBars {
                 }
             }
         }
-        nav_view.menu.getItem(0).setOnMenuItemClickListener {
-            navController.navigate(NewsFragmentDirections.actionNewsFragmentToProfileFragment(sp.getInt(Key.USER_ID, 0)))
-            drawer_layout.closeDrawer(GravityCompat.START)
-            return@setOnMenuItemClickListener true
-        }
         nav_view.menu.getItem(7).setOnMenuItemClickListener {
+            viewModel.logout(sp.getInt(Key.USER_ID, 0), sp.getString(Key.TOKEN,"") ?: "")
             sp.edit().clear().apply()
             startActivity(Intent(this, AuthActivity::class.java))
             finish()

@@ -26,6 +26,10 @@ class UserUseCaseImpl(
         usersRepository.saveFirebaseToken(userId, token)
     }
 
+    override suspend fun logout(userId: Int, token: String) {
+        usersRepository.logout(userId, token)
+    }
+
     override suspend fun getByEmailLike(query: String): List<UserPresentation> {
         val responseRepo = UserDomain.fromList(usersRepository.getByEmailLike(query))
         return UserPresentation.fromList(responseRepo)

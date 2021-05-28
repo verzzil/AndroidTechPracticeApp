@@ -19,18 +19,9 @@ class PostUseCaseImpl(
     }
 
     override suspend fun findAllPosts(): List<PostPresentation> {
-        try {
-            val result: List<PostDomain> = PostDomain.fromList(postsRepository.findAllPosts())
+        val result: List<PostDomain> = PostDomain.fromList(postsRepository.findAllPosts())
 
-            return PostPresentation.fromList(result)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return listOf(PostPresentation(1,
-            "asd",
-            "asd",
-            UserPresentation(0, 9, 2, "", ", ", "", "", 2.3, listOf(
-                SocialLinksResponse(1, "", "", 2)), "as", null), "", null))
+        return PostPresentation.fromList(result.sortedByDescending { postDomain -> postDomain.id })
     }
 
     override suspend fun createPost(post: PostDto) {
